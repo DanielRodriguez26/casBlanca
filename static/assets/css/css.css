@@ -1,0 +1,14 @@
+.container{
+	width: 100%;
+    padding: 10% 2%;
+    background-color: #1091BF;
+    border:1px solid rgba(255, 0, 0, 0);
+    height: 1080;
+    width: 100% ;
+
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+
+}
+     

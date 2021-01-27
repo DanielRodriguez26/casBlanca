@@ -1,0 +1,343 @@
+/* CSS CASUR - 2020 V.1*/
+
+/* Inicio CSS General*/
+body {
+background-image: url(../../img/background_casurd.jpg);
+background-position: top center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
+background-color:#eaeff5;
+}
+
+@media only screen and (max-width: 767px) {
+  body {
+    background-image: url(../../img/background_casurm.jpg);
+  }
+	}
+
+.linea{
+	border: 0;
+	height: 1px;
+	background: #bfbfbf;
+	width: 80%;
+	background-image: -webkit-linear-gradient(left, #ffffff, #bfbfbf, #fff);
+	background-image: -moz-linear-gradient(left, #ffffff, #bfbfbf, #fff);
+	background-image: -ms-linear-gradient(left, #ffffff, #bfbfbf, #fff);
+	background-image: -o-linear-gradient(left, #ffffff, #bfbfbf, #fff);
+}
+
+
+.caja{
+	background-color: #ffffff;
+	margin: 2% 25%;
+	padding: 20px 10px;
+	border-radius: 25px;
+	text-align: center;
+	left: 0% !important;
+	width: 50%;
+	border-color: #bfbfbf;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.caja2{
+	background-color: #ffffff;
+	margin: 2% 25%;
+	padding: 20px 10px;
+	border-radius: 25px;
+	text-align: center;
+	left: 0% !important;
+	width: 50%;
+	border-color: #bfbfbf;
+	border-width: 1px;
+	border-style: solid;
+}
+
+@media only screen and (max-width: 720px) {
+  .caja{
+	margin: 0% 8%;
+	border-radius: 25px;
+	text-align: center;
+	width: 85%;
+}
+	
+.caja2{
+	margin: 5%;
+	padding: 20px 10px;
+	border-radius: 25px;
+	text-align: center;
+	left: 0% !important;
+	width: 90%;
+}	
+	}
+
+
+.error1{
+	font-size: 4em;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #f2cb2e;
+}
+
+.error2{
+	font-size: 2.2em;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #1e8ebc;
+}
+/* Fin CSS General*/
+
+
+
+/* Inicio Bienvenida*/
+
+.logo_casur{
+	margin: 50px 10px 50px 10px;
+}
+
+@media only screen and (max-width: 767px) {
+  .logo_casur{
+	margin: 30px 0px;
+	height: auto;
+	width: 80%;
+}
+	}
+
+.caja_botones{
+	padding: 45px 10px;
+}
+
+@media only screen and (max-width: 767px) {
+  .caja_botones{
+	padding: 40px 10px;
+}
+	}
+
+.boton_1{
+    padding: 15px 60px;
+    font-size: 18px;
+    color: #000;
+    background-color: #FBBD46;
+    border-radius: 25px;
+  }
+  
+  .boton_1:hover{
+    padding: 15px 60px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #000;
+    background-color: #eaeff5;
+    border-style: solid;
+    border-width:1px;
+    border-color:#fbbd46;
+   
+  }
+
+
+@media only screen and (max-width: 767px) {
+  .boton_1{
+    padding: 20px 70px;
+    font-size: 16px;
+    color: #000;
+    border-radius: 25px;
+  }
+	}
+
+
+.txt_red{
+	color:red;
+	text-align: left;
+	
+}
+/* Fin Bienvenida*/
+
+
+/* Inicio Primer ingreso*/
+.logo_dibanka{
+	margin: 10px;
+}
+
+@media only screen and (max-width: 767px) {
+  .logo_dibanka{
+	margin: 10px;
+	width: 80%;
+	}
+}
+
+.logo_casur2{
+	margin: 10px 10px 30px 10px;
+}
+
+@media only screen and (max-width: 767px) {
+.logo_casur2{
+	margin: 15px 10px 35px 10px;
+}	
+	}
+
+.texto_inicio p{
+	text-align: center;
+	font-size: 1.3em;
+	color: #1e8ebc;
+	padding: 0px 10px;
+}
+
+.texto_inicio h3{
+	text-align: center;
+	font-size: 2.5em;
+	font-weight: bold;
+	color: #1e8ebc;
+	padding: 0px 10px;
+	margin: -5px 0px;
+}
+
+.formulario1{
+	text-align: center;
+	padding: 20px 150px;
+	color: #FAB937;
+}
+
+@media only screen and (max-width: 767px) {
+  .formulario1{
+	text-align: center;
+	padding: 20px 15px;
+	color: #FAB937;
+}
+	}
+
+
+/* Fin Primer ingreso*/
+
+
+/* Inicio terminos y condiciones.*/
+
+.txt_caja{
+	 margin: 0px 20px;
+}
+
+.txt_tr{
+	overflow-y: scroll;
+	text-align: justify;
+	height: 400px;
+}
+
+.btn_tc{
+	padding: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+.txt_caja{
+	 margin: 0px 20px;
+}
+
+.txt_tr{
+	overflow-y: scroll;
+	text-align: justify;
+	height: 360px;
+}
+
+.btn_tc{
+	padding: 20px 25px;
+}
+	}
+
+/* Fin terminos y condiciones.*/
+
+
+/* Inicio modal usuario bloqueado*/
+.titulo_modal{
+	color:#FF0004;
+}
+
+.body_modal{
+	color:#1D8FBC;
+}
+
+.btn_modal{
+	text-align: center;
+	margin: 0% 20% 3% 20%;
+	width: 60%;
+}
+
+.btn_modalx{
+	text-align: center;
+	margin: 0px 10%;
+	width: 80%;
+}
+/* Fin modal usuario bloqueado*/
+
+
+/* Inicio autenticacion x contraseÃƒÂ±a*/
+.aa_forget{
+	padding: 5px 2px;
+}
+
+/* Fin autenticacion x contraseÃƒÂ±a*/
+
+/* Inicio autenticacion x contraseÃƒÂ±a fallo*/
+.danger{
+	color: #ff0000;
+	font-size: 16px;	
+	border-color: #bfbfbf;
+	border-radius: 15px;
+	border-style: solid;
+	border-width: 1px;
+	padding: 20px;
+	margin: 0px 20px;
+}
+
+.danger2{
+	color: #ff0000;
+	font-size: 16px;
+	padding: 20px;
+	margin: 0px 20px;
+}
+
+.exito p{
+		color: #60c381;	
+	border-color: #bfbfbf;
+	border-radius: 15px;
+	border-style: solid;
+	border-width: 1px;
+	padding: 20px;
+	font-size: 2em;
+	margin: 0px 20px;
+}
+
+/* Fin autenticacion x contraseÃƒÂ±a fallo*/
+
+
+/* Inicio modal cambio contraseÃ±a 01*/
+
+.body_modal{
+	color:#1D8FBC;
+}
+
+.caja_passm{
+	text-align: center;
+	margin: 2% 10%;
+	width: 80%;
+}
+
+.btn_modal{
+	text-align: center;
+	margin: 0% 10% 3% 10%;
+	width: 80%;
+}
+
+
+.btn_modalx{
+	text-align: center;
+	margin: 0% 7%;
+	width: auto;
+}
+/* Fin modal cambio contraseÃ±a 01*/
+
+/* Inicio secion usuario bloqueado*/
+.bloqueado p{
+	color:#FF0004;
+	font-size: 1.4em;
+	text-transform: uppercase;
+}
+
+/* Fin secion usuario bloqueado*/

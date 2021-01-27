@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="theme-color" content="#1D8FBC">
+	<title>casur</title>
+	<link href="{{url_for('static', filename ='assets/bootstrap/css/bootstrap.css')}}" rel="stylesheet">        
+	<link href="{{url_for('static', filename ='assets/css/casur_menu_af.css')}}" rel="stylesheet">
+	<link href="{{url_for('static', filename ='assets/css/all.css')}}" rel="stylesheet">
+	<link href="{{url_for('static', filename ='assets/style.css')}}" rel="stylesheet">  <!-- AQUÍ SE HACE REFERENCIA A LA HOJA DE ESTILO DE LA ETIQUETA DE VIDEO -->
+</head>
+
+<body>
+	<div>
+		<div class="caja2 col-xs-10 col-md-3">
+	
+			<div class="texto_inicio">
+				<img class="logo_casur2" src="{{url_for('static', filename ='img/logo_casur.png')}}" width="200" height="78" alt=""/>
+				<p>BIENVENIDO A</p>
+				<img src="{{url_for('static', filename ='img/logo_dibanka.png')}}" alt="" width="350" class="logo_dibanka"/>
+				<hr class="linea">
+				<i class="fas fa-camera fa-3x"></i>
+				<p>&nbsp;</p>
+				<p>Por Favor Registre su Información Facial</p>
+			</div>
+			
+			<div class="texto_inicio">		
+				<p><strong>Procure estar en una zona iluminada y evite fotos borrosas </strong></p>
+				<p>
+					Ubique su rostro frente a la cámara
+					<br><br>
+					
+				</p>
+				
+				<div class="display-cover">
+	
+					<video autoplay id="videoElement"></video>
+	
+					<canvas id="canvas" class="d-none" ></canvas>
+				
+					<img id="photo" class="screenshot-image" style="object-fit: cover;">			
+					
+				</div>
+	
+			</div>
+	
+			<div class="cover-screenshot" id="primeraCaptura">
+				<p> <strong> Cuando este listo oprima el boton que está acontinuación</strong> </p>
+				<button id="btn-screenshot" class="btn btn-outline-success screenshot" title="ScreenShot" onclick="takeSnapshot()">
+					<p><i class="fas fa-camera"></i></p>
+				</button>
+			</div>
+
+			<div class="cover-screenshot" style="display: none;" id="segundaCaptura">
+				<p> <strong> Muy bien faltan 2 mas, oprima nuevamente el boton cuando este listo</strong> </p>
+				<button id="btn-screenshot" class="btn btn-outline-success screenshot" title="ScreenShot" onclick="takeSnapshot2()">
+					<p><i class="fas fa-camera"></i></p>
+				</button>
+			</div>
+
+			<div class="cover-screenshot" style="display: none;" id="terceraCaptura">
+				<p> <strong> Solo falta una, oprima nuevamente el boton cuando este listo</strong> </p>
+				<button id="btn-screenshot" class="btn btn-outline-success screenshot" title="ScreenShot" onclick="takeSnapshot3()">
+					<p><i class="fas fa-camera"></i></p>
+				</button>
+			</div>
+
+		<form action="/registrarostroPrimeraVez" method="POST">
+			<input id="beneficiario" class="input100" type="text" name="documentoAfiliado"  value="{{id}}" required hidden>
+			<input name="imgB64Input1" id="imgB64Input1" class="input100" type="text" required hidden>
+			<input name="imgB64Input2" id="imgB64Input2" class="input100" type="text" required hidden>
+			<input name="imgB64Input3" id="imgB64Input3" class="input100" type="text" required hidden>
+
+			<div style="display: none;" id="enviarRegistroFacial" >
+			<p><strong>Casi terminamos ahora oprima el boton para confirmar </strong></p>		
+			<button id="btn-continue" class="btn btn-outline-success screenshot">
+				<p><i class="fas fa-check-square fa-3x"></i></p>
+			</button></div>
+		</form>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+		
+	</div>	
+	  					
+</div>
+
+<script src="{{url_for('static', filename ='assets/js/jquery.min.js')}}"></script>
+<script src="{{url_for('static', filename ='assets/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename ='assets/js/cameraRegister.js')}}"></script>
+
+</body>
+</html>

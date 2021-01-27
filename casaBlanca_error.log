@@ -1,0 +1,72 @@
+2021-01-26 21:38:57,938 - CasaBlanca - ERROR: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 52, in loginVerify
+    session["idUsuario"] = id
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 350, in __setitem__
+    self._get_current_object()[key] = value
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\sessions.py", line 103, in _fail
+    "The session is unavailable because no secret "
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+2021-01-26 21:42:41,456 - CasaBlanca - ERROR: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 52, in loginVerify
+    session["idUsuario"] = id
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 350, in __setitem__
+    self._get_current_object()[key] = value
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\sessions.py", line 103, in _fail
+    "The session is unavailable because no secret "
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+2021-01-26 21:43:31,032 - CasaBlanca - ERROR: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 52, in loginVerify
+    session["idUsuario"] = id
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 350, in __setitem__
+    self._get_current_object()[key] = value
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\sessions.py", line 103, in _fail
+    "The session is unavailable because no secret "
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+2021-01-26 21:47:30,612 - CasaBlanca - ERROR: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 52, in loginVerify
+    session["idUsuario"] = id
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 350, in __setitem__
+    self._get_current_object()[key] = value
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\sessions.py", line 103, in _fail
+    "The session is unavailable because no secret "
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+2021-01-26 21:48:57,935 - CasaBlanca - ERROR: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 52, in loginVerify
+    session["idUsuario"] = id
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 350, in __setitem__
+    self._get_current_object()[key] = value
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\sessions.py", line 103, in _fail
+    "The session is unavailable because no secret "
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+2021-01-26 21:50:31,054 - CasaBlanca - ERROR: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 52, in loginVerify
+    session["idUsuario"] = id
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 350, in __setitem__
+    self._get_current_object()[key] = value
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\sessions.py", line 103, in _fail
+    "The session is unavailable because no secret "
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+2021-01-26 21:58:15,448 - CasaBlanca - ERROR: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 52, in loginVerify
+    session["idUsuario"] = id
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 350, in __setitem__
+    self._get_current_object()[key] = value
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\sessions.py", line 103, in _fail
+    "The session is unavailable because no secret "
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+2021-01-26 22:01:38,099 - CasaBlanca - ERROR: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 52, in loginVerify
+    session["username"] = id
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 350, in __setitem__
+    self._get_current_object()[key] = value
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\sessions.py", line 103, in _fail
+    "The session is unavailable because no secret "
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.

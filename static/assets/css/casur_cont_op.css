@@ -1,0 +1,91 @@
+/* CSS CASUR - 2020 V.1*/
+
+/* Inicio CSS General*/
+.container {
+ width: auto;
+}
+
+.caja_grl{
+	margin: 2% 2%;
+	border-radius: 25px;
+	text-align: center;
+	width: 96%;
+}
+
+.caja_grl p{	
+	text-align: left;
+}
+
+.caja_grl td{
+	text-align: left;
+	border: #bfbfbf 1px solid;
+}
+
+.caja_grl tr{
+	text-align: left;
+	border: #bfbfbf 1px solid;	
+}
+
+.caja_grl th{
+	text-align: left;
+	border: #bfbfbf 1px solid;
+	background-color: #e6e6e6;
+}
+
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
+}
+
+/* Fin CSS General*/
+
+
+/* Inicio cambio contraseña 01*/
+.btn_cp{
+	margin: 20px;
+}
+
+.caja_pass{
+	text-align: center;
+	width: 98%;
+}
+/* Fin cambio contraseña 01*/
+
+
+/* Inicio modal cambio contraseña 01*/
+
+.body_modal{
+	color:#1D8FBC;
+}
+
+.caja_passm{
+	text-align: center;
+	margin: 2%;
+	width: 96%;
+}
+
+.btn_modal{
+	text-align: center;
+	margin: 0% 5% 3% 2%;
+	width: 96%;
+}
+
+
+.btn_modalx{
+	text-align: center;
+	margin: 0% 7%;
+	width: auto;
+}
+/* Fin modal cambio contraseña 01*/
+
+/* Inicio cambio contraseña 02*/
+.check{
+	color: #00AA1D;
+	padding: 7px;
+}
+
+.caja_pass2{
+	text-align: center;
+	width: 100%;
+}
+/* Fin cambio contraseña 02*/
+

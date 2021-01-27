@@ -1,0 +1,111 @@
+2021-01-26 11:08:06,497 - Dibanka - ERROR: Expected an expression, got 'end of print statement'
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 74, in ingresoProductos
+    return render_template('ingresoProductos.html',productos=productos)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\ingresoProductos.html", line 98, in template
+    <th>{{}}</th>
+jinja2.exceptions.TemplateSyntaxError: Expected an expression, got 'end of print statement'
+2021-01-26 11:08:06,499 - Dibanka - ERROR: Expected an expression, got 'end of print statement'
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 74, in ingresoProductos
+    return render_template('ingresoProductos.html',productos=productos)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\ingresoProductos.html", line 98, in template
+    <th>{{}}</th>
+jinja2.exceptions.TemplateSyntaxError: Expected an expression, got 'end of print statement'
+2021-01-26 11:08:24,759 - Dibanka - ERROR: Expected an expression, got 'end of print statement'
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 74, in ingresoProductos
+    except Exception as error:
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\ingresoProductos.html", line 98, in template
+    <th>{{}}</th>
+jinja2.exceptions.TemplateSyntaxError: Expected an expression, got 'end of print statement'
+2021-01-26 11:08:33,248 - Dibanka - ERROR: Expected an expression, got 'end of print statement'
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 73, in ingresoProductos
+    return render_template('ingresoProductos.html',productos=productos)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\loaders.py", line 127, in load
+    code = environment.compile(source, name, filename)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 638, in compile
+    self.handle_exception(source=source_hint)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\ingresoProductos.html", line 98, in template
+    <th>{{}}</th>
+jinja2.exceptions.TemplateSyntaxError: Expected an expression, got 'end of print statement'
+2021-01-26 21:10:11,025 - Dibanka - ERROR: 403.html
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 63, in home
+    return render_template("403.html")
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\loaders.py", line 115, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 60, in get_source
+    return self._get_source_fast(environment, template)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 89, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: 403.html

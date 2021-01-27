@@ -1,0 +1,122 @@
+/* Inicio CSS General*/
+body {
+    font-family: 'Quicksand', sans-serif;
+    }
+    
+    .imagen_prin{
+        padding-top: 15%;
+    }
+    
+    .texto_inicio{
+        padding-top: 8%;
+        color: #00b8e0;
+        font-size: 3em;
+        font-weight: 700;
+        line-height: 100%;
+    }
+    
+    .texto_full{
+        padding: 5% 10% 0% 0%;
+        color: #596e73;
+        font-size: 1.1em;
+        font-weight: 600;
+    }
+    
+    .texto_abajo{
+        padding-top: 2%;
+        color: #00b8e0;
+        font-size: 1em;
+        font-weight: 700;
+    }
+    
+    
+    .texto_abajo a:link and a:visited {
+        color: #00b8e0;
+        text-decoration: none;
+    }
+    
+    .texto_abajo a:hover {
+        color: #00b8e0;
+        text-decoration: none;
+    }
+    
+    .linea{
+        border: 3px solid #FAAF1D;
+        float: left;
+        width: 50%;
+        padding: 0%;
+    }
+    
+    .txt_1form{
+        padding-top: 3%;
+        color: #00b8e0;
+        font-size: 2em;
+        font-weight: 700;
+        line-height: 100%;
+    }
+    
+    
+    .espacio_inicial{
+        padding-top: 60%;
+    }
+    
+    .espacio_form{
+        padding-top: 5%;
+    }
+    
+    .btn_eye{
+        color: #f2cb2e;
+    }
+    
+    
+    .boton_inicio{
+        margin: 5px 25%;
+        text-align: center;
+        float: left;
+        padding: 3%;
+        background-color: #00b8e0;
+        border: none;
+        font-size: 1em;
+        color: #fff;
+        border-radius: 8px;
+        width: 50%;
+        height: 40px;
+    }
+
+    .boton_inicio_doble {
+        margin: 5px 25%;
+        text-align: center;
+        float: left;
+        padding: 3%;
+        background-color: #00b8e0;
+        border: none;
+        font-size: 1em;
+        color: #fff;
+        border-radius: 8px;
+        width: 50%;
+        height: 40px;
+    }
+    
+    .caja{
+        background-color: #ffffff;
+        margin: 0% 0%;
+        padding: 5% 10% 20% 10%;
+        border-radius: 0px 0px 25px 25px;
+        width: 90%;
+        border-color: #bfbfbf;
+        border-width: 1px;
+        border-style: solid;
+        box-shadow: 0px 1px 6px #969696;
+    }  
+    
+    .caja_boton_doble {
+        background-color: #ffffff;
+        margin: 0% 0%;
+        padding: 5% 10% 5% 10%;
+        border-radius: 0px 0px 25px 25px;
+        width: 90%;
+        border-color: #bfbfbf;
+        border-width: 1px;
+        border-style: solid;
+        box-shadow: 0px 1px 6px #969696;
+    }    
