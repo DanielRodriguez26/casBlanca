@@ -1,13 +1,15 @@
 import mysql.connector
 import datetime
 import modules.customhash as customhash
+import modules.globalvariables as gb
 from flask import request,render_template,url_for, session
 
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="dibankaops",
-    password="37f75cac-bcbd-11ea-a5ee-00090ffe0001",
-    database="casaBlanca")
+globalvariables = gb.GlobalVariables(True)
+mydb= mysql.connector.connect(
+    host=globalvariables.MysqlHost,
+    user=globalvariables.MysqlUser,
+    password=globalvariables.MysqlPassword,
+    database=globalvariables.MysqlDatabase)  
 
 class authenticateResponse:
     # URL a la que va a ser redirigido el usuario. Puede ser el home de un usuario especifico en caso de que la autenticación sea exitosa, o al mismo formulario

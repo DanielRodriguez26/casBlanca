@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, g, make_response, session, escape, Response,json
 import modules.authentication as authentication
 from flask_mysqldb import MySQL
+import modules.globalvariables as gb
 import modules.customhash as customhash
 import modules.usuarios as usuarios
 import mysql.connector
@@ -11,17 +12,16 @@ import logging
 
 
 app = Flask(__name__)
+mydb = None
+logger = None
+loggerAccess = None
+globalvariables = None
 
 
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="dibankaops",
-    password="37f75cac-bcbd-11ea-a5ee-00090ffe0001",
-    database="casaBlanca")
 
 logger= None
 def Initial():
-    global app, mysql, logger
+    global app, mydb, logger
     try:
         #Configuración logger de errores
         logger = logging.getLogger('CasaBlanca')
@@ -30,6 +30,14 @@ def Initial():
         handler.setLevel(logging.ERROR)
         handler.setFormatter(formatter)
         logger.addHandler(handler)
+
+        globalvariables = gb.GlobalVariables(True)
+        mydb= mysql.connector.connect(
+            host=globalvariables.MysqlHost,
+            user=globalvariables.MysqlUser,
+            password=globalvariables.MysqlPassword,
+            database=globalvariables.MysqlDatabase)  
+
 
         app.secret_key = "RGlCYW5rYTEuMCB3YXMgbWFkZSBmb3IgQ0FTVVIsIGFuZCB3cml0dGVuIGJ5IE1pZ3VlIGFuZCBEYW5pZWwuIEF0IHRoZSBlbmQgb2YgdGhlIHByb2plY3QsIEp1YW4sIEVkd2luLCBIdWdvIGFuZCBBbmRyw6lzIGpvaW5lZCB0aGUgdGVhbS4gTm93IHdlIGFyZSBhIGZpcmVmaWdodGVycyB0ZWFtLg=="
     except Exception as error:
@@ -83,10 +91,7 @@ def homePorductos():
     try:
         if "adminSuper" in session or "adminSuper" in session or "ventas" in session:  
             cur = mydb.cursor(dictionary=True)
-            cur.execute('''
-                    SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos
-                    ''')
-            
+            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos''')
             productos = cur.fetchall()
             productos = json.dumps(productos)        
             return render_template('homePorductos.html',productos=productos)
@@ -99,9 +104,7 @@ def homePorductos():
 def ingresoProductos():
     try:
         cur = mydb.cursor()
-        cur.execute('''
-                SELECT idProducto, nombreProducto ,precioProducto , fechaProducto,cantidadProducto, valorUnidadProducto, valorTotalProducto,actualizarProducto FROM productos
-                ''')
+        cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto,cantidadProducto, valorUnidadProducto, valorTotalProducto,actualizarProducto FROM productos''')
         productos = cur.fetchall()
         return render_template('ingresoProductos.html',productos=productos)
     except Exception as error:
@@ -112,9 +115,7 @@ def ingresoProductos():
 def salidaProductos():
     try:
         cur = mydb.cursor()
-        cur.execute('''
-                SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos
-                ''')
+        cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos''')
         productos = cur.fetchall()
         return render_template('salidaProductos.html',productos=productos)
     except Exception as error:
@@ -127,9 +128,7 @@ def cortecias():
     
         if "adminSuper" in session or "adminSuper" in session: 
             cur = mydb.cursor(dictionary=True)
-            cur.execute('''
-                    SELECT nombreProducto ,precioProducto ,idProducto FROM productos
-                    ''')
+            cur.execute(''' SELECT nombreProducto ,precioProducto ,idProducto FROM productos''')
             productos = cur.fetchall()
             productos = json.dumps(productos)
             return render_template('cortecias.html',productos=productos)
@@ -171,9 +170,12 @@ def facturaProducto():
 
                     idDetalle =idDetalle 
                 else:
-                    cur.execute('''
-                        INSERT INTO casablanca.detalle (idFacturaDetalle, idProductoDetalle, cantidadDetalle, fechaDetalle) VALUES (%s, %s, %s, now())
-                        ''', (idFactura,producto,contar))
+                    cur.execute(''' INSERT INTO 
+                                    casablanca.detalle
+                                    (idFacturaDetalle, idProductoDetalle, 
+                                    cantidadDetalle, fechaDetalle) 
+                                    VALUES (%s, %s, %s, now())''', 
+                                    (idFactura,producto,contar))
 
                     idDetalle = cur.lastrowid
             mydb.commit()
@@ -194,8 +196,66 @@ def facturarCadaProducto():
 
 
 @app.route('/usuarios')
-def usuarios():
-    return render_template('usuarios.html')
+def usuarios():    
+    try:
+        return render_template('usuarios.html')
+    except Exception as error:
+        logger.exception(error)
+
+
+@app.route('/nuevoUsuario',methods=['POST','GET'])
+def nuevoUsuario():
+    try:
+        
+        nombre=request.form['nombre']
+        apellido=request.form['apellido']
+        cedula=request.form['cedula']
+        email=request.form['email']
+        rol=request.form['rol']
+        contraseña =request.form['contraseña']
+
+        hashedPass = customhash.hash(contraseña)
+
+        cur = mydb.cursor()
+        cur.execute(''' INSERT INTO 
+                        casablanca.usuarios 
+                        (username, nombreUsuarios, 
+                        apellidoUsuario,emailUsuario, 
+                        passwordUsuario, rol, 
+                        fechaUsuario)
+                        VALUES (%s,%s,%s,%s,%s,now()) ''',
+                (cedula, nombre, apellido, email,hashedPass, rol))
+        mydb.commit()
+        return redirect(url_for('usuarios '))
+    except Exception as error:
+        logger.exception(error)
+
+
+@app.route('/editarUsuario/<id>',methods=['POST','GET'])
+def editarUsuario(id):
+    try:
+        
+        nombre=request.form['nombre']
+        apellido=request.form['apellido']
+        cedula=request.form['cedula']
+        email=request.form['email']
+        rol=request.form['rol']
+        contraseña =request.form['contraseña']
+
+        hashedPass = customhash.hash(contraseña)
+
+        cur = mydb.cursor()
+        cur.execute(''' INSERT INTO 
+                        casablanca.usuarios 
+                        (username, nombreUsuarios, 
+                        apellidoUsuario,emailUsuario, 
+                        passwordUsuario, rol, fechaUsuario) 
+                        VALUES (%s,%s,%s,%s,%s,%s,now())''',
+                        (cedula,nombre, apellido, email,hashedPass, rol))
+        mydb.commit()
+        return redirect(url_for('usuarios '))
+    except Exception as error:
+        logger.exception(error)
 
 if __name__ == '__main__':
     app.run(port = 3000, debug = True)

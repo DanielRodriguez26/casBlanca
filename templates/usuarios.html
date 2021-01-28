@@ -167,8 +167,38 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="guardarUsuario()">Guardar</button>
+                <button type="button" class="btn btn-primary" id="guardarUsuario" >Guardar</button>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $("#guardarUsuario").click(function() {
+            nombre=$("#nombre").val()
+            apellido=$("#apellido").val()
+            cedula=$("#cedula").val()
+            email=$("#email").val()
+            rol=$("#rol").val()
+            contraseña=$("#contraseña").val()
+    
+            $.ajax({
+                data: {
+                    nombre,
+                    apellido,
+                    cedula,
+                    email,
+                    rol,
+                    contraseña                          
+                },
+                type: 'POST',
+                url: '/nuevoUsuario',
+                success: function (response) {
+
+                }
+            });
+        });
+    });
+    
+</script>
