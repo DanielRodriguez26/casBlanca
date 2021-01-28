@@ -56,12 +56,15 @@ def login():
 @app.route('/loginVerify', methods=["GET", "POST"])
 def loginVerify():
     try:
-        id = request.form['identificacion']
-        contra = request.form['contraseña']
-        session["username"] = id
-        authenticateResponse = authentication.authenticate(id, contra)
-        if (authenticateResponse):
-            redirect(url_for(authenticateResponse.url))
+        if request.method == "POST":
+            id = request.form['identificacion']
+            contra = request.form['contraseña']
+            session["username"] = id
+            authenticateResponse = authentication.authenticate(id, contra)
+            if (authenticateResponse.redirect):
+                return redirect(authenticateResponse.url)
+        else:
+            return redirect("/")
     except Exception as error:
             logger.exception(error)
 
@@ -69,10 +72,10 @@ def loginVerify():
 @app.route('/home')
 def home():
     try:
-        # if "adminSuper" in session or "adminSuper" in session: 
+        if "adminSuper" in session or "adminSuper" in session: 
             
             return render_template('index.html')
-        # return render_template("403.html")
+        return render_template("403.html")
     except Exception as error:
             logger.exception(error)
 
@@ -223,7 +226,7 @@ def nuevoUsuario():
                         apellidoUsuario,emailUsuario, 
                         passwordUsuario, rol, 
                         fechaUsuario)
-                        VALUES (%s,%s,%s,%s,%s,now()) ''',
+                        VALUES (%s,%s,%s,%s,%s,%s,now()) ''',
                 (cedula, nombre, apellido, email,hashedPass, rol))
         mydb.commit()
         return redirect(url_for('usuarios '))

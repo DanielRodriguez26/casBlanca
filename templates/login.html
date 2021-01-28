@@ -85,7 +85,7 @@
     <!-- /.login-box -->
     <script>
         function loginVeryfy() {
-            debugger
+            
             identificacion = $('#identificacion').val()
             contraseña = $('#contraseña').val()
             $.ajax({
@@ -96,7 +96,8 @@
                 type: 'POST',
                 url: '/loginVerify',
                 success: function (response) {
-
+                    debugger
+                    window.location.href = json.response;
                 }
             })
 

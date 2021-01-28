@@ -28,15 +28,15 @@ class authenticateResponse:
 
 
 def authenticate(id, contra):
-    cur = mydb.cursor()
+    cur = mydb.cursor(dictionary=True)
     cur.execute("SELECT * FROM usuarios WHERE username=%s", (id,))
     user = cur.fetchone()
     cur.close()
-
+    response = authenticateResponse()
     if user != None:
         hashedPass = customhash.hash(contra)
-
-        if user["passwordUsuario"] == hashedPass:
+        contrasenia = user["passwordUsuario"]
+        if contrasenia  == hashedPass:
             response.isValid = True
 
             session["rol"] = user["rol"]
@@ -45,11 +45,14 @@ def authenticate(id, contra):
                 session["adminSuper"] = id
                 response.redirect = True
                 response.url = url_for("home")
+                return response
             if user["rol"] == 2:
                 session["admin"] = id
                 response.redirect = True
-                response.url = url_for("home")
+                response.url = url_for('home')
+                return response
             if user["rol"] == 3:
                 session["ventas"] = id
                 response.redirect = True
-                response.url = url_for("homeVentas")
+                response.url = url_for('homeVentas')
+                return response
