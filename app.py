@@ -72,10 +72,10 @@ def loginVerify():
 @app.route('/home')
 def home():
     try:
-        if "adminSuper" in session or "adminSuper" in session: 
+        # if "adminSuper" in session or "adminSuper" in session: 
             
             return render_template('index.html')
-        return render_template("403.html")
+        # return render_template("403.html")
     except Exception as error:
             logger.exception(error)
 
@@ -201,7 +201,10 @@ def facturarCadaProducto():
 @app.route('/usuarios')
 def usuarios():    
     try:
-        return render_template('usuarios.html')
+        cur = mydb.cursor()
+        cur.execute('''SELECT idUsuario,username,nombreUsuarios,apellidoUsuario,emailUsuario,rol,fechaUsuario FROM casablanca.usuarios''')
+        usuarios = cur.fetchall()
+        return render_template('usuarios.html',usuarios=usuarios)
     except Exception as error:
         logger.exception(error)
 
