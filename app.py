@@ -17,9 +17,6 @@ logger = None
 loggerAccess = None
 globalvariables = None
 
-
-
-logger= None
 def Initial():
     global app, mydb, logger
     try:
@@ -72,12 +69,13 @@ def loginVerify():
 @app.route('/home')
 def home():
     try:
-        # if "adminSuper" in session or "adminSuper" in session: 
+        if "adminSuper" in session or "admin" in session: 
             
             return render_template('index.html')
-        # return render_template("403.html")
+        return render_template("403.html")
     except Exception as error:
             logger.exception(error)
+
 
 @app.route('/homeVentas')
 def homeVentas():
@@ -92,7 +90,7 @@ def homeVentas():
 @app.route('/homePorductos')
 def homePorductos():
     try:
-        if "adminSuper" in session or "adminSuper" in session or "ventas" in session:  
+        if "adminSuper" in session or "admin" in session or "ventas" in session:  
             cur = mydb.cursor(dictionary=True)
             cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos''')
             productos = cur.fetchall()
@@ -106,10 +104,12 @@ def homePorductos():
 @app.route('/ingresoProductos')
 def ingresoProductos():
     try:
-        cur = mydb.cursor()
-        cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto,cantidadProducto, valorUnidadProducto, valorTotalProducto,actualizarProducto FROM productos''')
-        productos = cur.fetchall()
-        return render_template('ingresoProductos.html',productos=productos)
+        if "adminSuper" in session or "admin" in session: 
+            cur = mydb.cursor()
+            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto,cantidadProducto, valorUnidadProducto, valorTotalProducto,actualizarProducto FROM productos''')
+            productos = cur.fetchall()
+            return render_template('ingresoProductos.html',productos=productos)
+        return render_template("403.html")
     except Exception as error:
         logger.exception(error)
 
@@ -117,10 +117,12 @@ def ingresoProductos():
 @app.route('/salidaProductos')
 def salidaProductos():
     try:
-        cur = mydb.cursor()
-        cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos''')
-        productos = cur.fetchall()
-        return render_template('salidaProductos.html',productos=productos)
+        if "adminSuper" in session or "admin" in session: 
+            cur = mydb.cursor()
+            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos''')
+            productos = cur.fetchall()
+            return render_template('salidaProductos.html',productos=productos)
+        return render_template("403.html")
     except Exception as error:
         logger.exception(error)
 
@@ -128,8 +130,7 @@ def salidaProductos():
 @app.route('/cortecias')
 def cortecias():
     try:
-    
-        if "adminSuper" in session or "adminSuper" in session: 
+        if "adminSuper" in session or "admin" in session: 
             cur = mydb.cursor(dictionary=True)
             cur.execute(''' SELECT nombreProducto ,precioProducto ,idProducto FROM productos''')
             productos = cur.fetchall()
@@ -143,7 +144,7 @@ def cortecias():
 @app.route('/facturaProducto',methods=['POST','GET'])
 def facturaProducto():
     try:
-        if "adminSuper" in session or "adminSuper" in session or  "ventas" in session: 
+        if "adminSuper" in session or "admin" in session or  "ventas" in session: 
             totalVenta = request.form['totalVenta']
             productos = request.form['productos']
             productos = ast.literal_eval(productos)
@@ -192,8 +193,9 @@ def facturaProducto():
 @app.route('/facturarCadaProducto',methods=['POST','GET'])
 def facturarCadaProducto():
     try:
-        idProdcto = request.form['idProdcto']
-        
+        if "adminSuper" in session or "admin" in session: 
+            pass
+        return render_template("403.html")
     except Exception as error:
         logger.exception(error)
 
@@ -212,27 +214,29 @@ def usuarios():
 @app.route('/nuevoUsuario',methods=['POST','GET'])
 def nuevoUsuario():
     try:
+        if "adminSuper" in session or "admin" in session: 
         
-        nombre=request.form['nombre']
-        apellido=request.form['apellido']
-        cedula=request.form['cedula']
-        email=request.form['email']
-        rol=request.form['rol']
-        contraseña =request.form['contraseña']
+            nombre=request.form['nombre']
+            apellido=request.form['apellido']
+            cedula=request.form['cedula']
+            email=request.form['email']
+            rol=request.form['rol']
+            contraseña =request.form['contraseña']
 
-        hashedPass = customhash.hash(contraseña)
+            hashedPass = customhash.hash(contraseña)
 
-        cur = mydb.cursor()
-        cur.execute(''' INSERT INTO 
-                        casablanca.usuarios 
-                        (username, nombreUsuarios, 
-                        apellidoUsuario,emailUsuario, 
-                        passwordUsuario, rol, 
-                        fechaUsuario)
-                        VALUES (%s,%s,%s,%s,%s,%s,now()) ''',
-                (cedula, nombre, apellido, email,hashedPass, rol))
-        mydb.commit()
-        return redirect(url_for('usuarios '))
+            cur = mydb.cursor()
+            cur.execute(''' INSERT INTO 
+                            casablanca.usuarios 
+                            (username, nombreUsuarios, 
+                            apellidoUsuario,emailUsuario, 
+                            passwordUsuario, rol, 
+                            fechaUsuario)
+                            VALUES (%s,%s,%s,%s,%s,%s,now()) ''',
+                    (cedula, nombre, apellido, email,hashedPass, rol))
+            mydb.commit()
+            return redirect(url_for('usuarios '))
+        return render_template("403.html")
     except Exception as error:
         logger.exception(error)
 
@@ -240,26 +244,27 @@ def nuevoUsuario():
 @app.route('/editarUsuario/<id>',methods=['POST','GET'])
 def editarUsuario(id):
     try:
-        
-        nombre=request.form['nombre']
-        apellido=request.form['apellido']
-        cedula=request.form['cedula']
-        email=request.form['email']
-        rol=request.form['rol']
-        contraseña =request.form['contraseña']
+        if "adminSuper" in session or "admin" in session: 
+            nombre=request.form['nombre']
+            apellido=request.form['apellido']
+            cedula=request.form['cedula']
+            email=request.form['email']
+            rol=request.form['rol']
+            contraseña =request.form['contraseña']
 
-        hashedPass = customhash.hash(contraseña)
+            hashedPass = customhash.hash(contraseña)
 
-        cur = mydb.cursor()
-        cur.execute(''' INSERT INTO 
-                        casablanca.usuarios 
-                        (username, nombreUsuarios, 
-                        apellidoUsuario,emailUsuario, 
-                        passwordUsuario, rol, fechaUsuario) 
-                        VALUES (%s,%s,%s,%s,%s,%s,now())''',
-                        (cedula,nombre, apellido, email,hashedPass, rol))
-        mydb.commit()
-        return redirect(url_for('usuarios '))
+            cur = mydb.cursor()
+            cur.execute(''' INSERT INTO 
+                            casablanca.usuarios 
+                            (username, nombreUsuarios, 
+                            apellidoUsuario,emailUsuario, 
+                            passwordUsuario, rol, fechaUsuario) 
+                            VALUES (%s,%s,%s,%s,%s,%s,now())''',
+                            (cedula,nombre, apellido, email,hashedPass, rol))
+            mydb.commit()
+            return redirect(url_for('usuarios '))
+        return render_template("403.html")
     except Exception as error:
         logger.exception(error)
 
