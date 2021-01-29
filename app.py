@@ -8,6 +8,7 @@ import modules.usuarios as usuarios
 import mysql.connector
 import ast
 import logging
+import datetime
 
 
 
@@ -77,6 +78,7 @@ def home():
             logger.exception(error)
 
 
+# Productos
 @app.route('/homeVentas')
 def homeVentas():
     try:
@@ -155,10 +157,11 @@ def facturaProducto():
             idProducto = productos[0]
             contar = 0
             idDetalle=0
+            session["username"] = id
             cur = mydb.cursor()
             cur.execute('''
-                    INSERT INTO casablanca.facturas (totalFacturas,fechaFactura) VALUES (%s,now())
-                    ''',(totalVenta,) )
+                    INSERT INTO casablanca.facturas (totalFacturas,fechaFactura,usuarioFactura) VALUES (%s,now(),%s)
+                    ''',(totalVenta,id,) )
             
             idFactura = cur.lastrowid
 
@@ -193,17 +196,7 @@ def facturaProducto():
     except Exception as error:
         logger.exception(error)
 
-
-@app.route('/facturarCadaProducto',methods=['POST','GET'])
-def facturarCadaProducto():
-    try:
-        if "adminSuper" in session or "admin" in session: 
-            pass
-        return render_template("403.html")
-    except Exception as error:
-        logger.exception(error)
-
-
+# Usurios
 @app.route('/usuarios')
 def usuarios():    
     try:
@@ -267,6 +260,7 @@ def editarUsuario(id):
     except Exception as error:
         logger.exception(error)
 
+
 @app.route('/updateUsuario/<id>',methods=['POST','GET'])
 def updateUsuario(id):
     try:
@@ -296,6 +290,7 @@ def updateUsuario(id):
     except Exception as error:
         logger.exception(error)
 
+
 @app.route('/deleteUsuario/<id>', methods=['POST'])
 def deleteUsuario(id):
     try:
@@ -308,6 +303,44 @@ def deleteUsuario(id):
         return render_template("403.html")
     except Exception as error:
         logger.exception(error)
+
+
+# Detalles
+@app.route('/detallesFactura',methods=['POST','GET'])
+def detallesFactura():
+    try:
+        if "adminSuper" in session or "admin" in session or "ventas" in session: 
+            cur = mydb.cursor()
+            cur.execute('''SELECT idFactura,totalFacturas,fechaFactura,usuarioFactura FROM facturas;''')
+            facturas = cur.fetchall()
+            cur.close()
+            return render_template('detalles.html',facturas=facturas)
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+
+@app.route('/detallesProducto/<id>', methods=['POST','GET'])
+def detallesProducto(id):
+    try:
+        if "adminSuper" in session or "admin" in session or "ventas" in session: 
+            cur =mydb.cursor()
+            cur.execute('''SELECT p.nombreProducto, p.precioProducto, 
+                            d.cantidadDetalle, d.fechaDetalle, f.totalFacturas 
+                            FROM detalle as d
+                            inner join productos as p  on d.idProductoDetalle = p.idProducto
+                            inner join facturas as f  on d.idFacturaDetalle = f.idFactura
+                            where idFacturaDetalle = %s''',(id,))
+            detalles = cur.fetchall()
+            fechafac= detalles[0][3]
+            totalPre= detalles[0][4]
+            fechaHoy =datetime.date.today()
+            cur.close()
+            return render_template('detallesProductos.html',detalles=detalles,totalPre=totalPre,fechafac=fechafac,fechaHoy=fechaHoy)
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
 
 
 if __name__ == '__main__':

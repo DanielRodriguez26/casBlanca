@@ -1,0 +1,87 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2 ">
+            <div class="col-sm-6">
+                <h1 class="m-0  mb-3">Detalles de la factura</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Detalles de la factura</li>
+                </ol>
+            </div>
+            <!-- /.col --
+        </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+</div>
+
+
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <!-- title row -->
+        <div class="row">
+            <div class="col-12">
+                <h4>
+                    <img src="{{url_for('static', filename ='img/logo1.jpeg')}}" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3" style="opacity: .8; height: 53px;">
+                    <span class="brand-text font-weight-light">Casa Blanca</span>
+                    <small class="float-right">Fecha: {{fechaHoy}}</small>
+                </h4>
+            </div>
+            <!-- /.col -->
+        </div>
+
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-12 table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio por unidad</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for detalle in detalles %}
+                        <tr>
+
+                            <td>{{detalle.0}}</td>
+                            <td>{{detalle.2}}</td>
+                            <td>{{"${:,.0f}".format( detalle.1)}}</td>
+                            <td>{{"${:,.0f}".format( detalle.1 * detalle.2)}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row ">
+
+            <!-- /.col --> 
+            <div class="col-6 float-right">
+                <p class="lead"><span>Fecha de factura: </span> {{fechafac}}</p>
+
+                <div class="table-responsive ">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Total:</th>
+                                <td>{{"${:,.0f}".format(totalPre)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+    </div>
+</section>

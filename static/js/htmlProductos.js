@@ -19,8 +19,8 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $("#facturaProducto").click(function() {
-        $("#contenido").load("facturaProducto");
+    $("#detallesFactura").click(function() {
+        $("#contenido").load("detallesFactura");
     });
 });
 $(document).ready(function() {
