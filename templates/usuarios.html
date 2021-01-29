@@ -51,24 +51,15 @@
     <div class="container-fluid">
         <div class="row mb-2 ">
             <div class="col-sm-6">
-                <h1 class="m-0  mb-3">Ingresos</h1>
+                <h1 class="m-0  mb-3">Usuarios</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Ingresos</li>
+                    <li class="breadcrumb-item active">Usuarios</li>
                 </ol>
             </div><!-- /.col -->
             <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        {% for producto in productos %}
-
-                        {% endfor %}
-                    </div>
-                </div>
-            </section>
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
@@ -98,32 +89,43 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for producto in usuarios %}
+                                {% for usuario in usuarios %}
                                 <tr>
-                                    
-                                    <th>{{producto.1}}</th>
-                                    <th>{{producto.2}} {{producto.3}}</th>
-                                    <th>{{producto.4}}</th>
+
+                                    <th>{{usuario.1}}</th>
+                                    <th>{{usuario.2}} {{usuario.3}}</th>
+                                    <th>{{usuario.4}}</th>
                                     <th>
-                                        {% if producto.5 == 2 %}
-                                            Administrador
-                                        {% elif  producto.5 == 3%}
-                                            Vendedor
+                                        {% if usuario.5 == 2 %}
+                                        Administrador
+                                        {% elif  usuario.5 == 3%}
+                                        Vendedor
                                         {% endif %}
                                     </th>
-                                    <th>{{producto.6}}</th>
+                                    <th>{{usuario.6}}</th>
                                     <th>
-                                        <a href="#" class="btn btn-warning btn-sm">
+                                        <button href="#" class="btn btn-warning btn-sm" id="update{{usuario.1}}">
                                             <i class="nav-icon fas fa-edit"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-danger btn-sm">
-                                            <i class="nav-icon fas fa-trash-alt"></i>
-                                        </a>
+                                        </button>
+                                        
+                                        <form action="/deleteUsuario/{{usuario.1}}" method="POST"
+                                            class="btnDelete float-right">
+                                            <button type="submit" class="btn btn-danger btn-sm  ">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </th>
                                 </tr>
-                                
-                                    
-                                
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#update{{usuario.1}}").click(function () {
+                                            debugger
+                                            $("#contenido").load("/editarUsuario/{{usuario.1}}");
+                                        });
+                                    });
+                                </script>
+
+
                                 {% endfor %}
                             </tbody>
                         </table>
@@ -144,6 +146,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <div id="mensajeErrorCrearUsuario"></div>
             </div>
             <div class="modal-body">
 
@@ -172,7 +175,7 @@
                     <label>Rol</label>
                     <select class="form-control" id="rol">
                         <option value="2">Administrador</option>
-                        <option value="3">Vendedor</option>                        
+                        <option value="3">Vendedor</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -184,22 +187,22 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="guardarUsuario" >Guardar</button>
+                <button type="button" class="btn btn-primary" id="guardarUsuario">Guardar</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function() {
-        $("#guardarUsuario").click(function() {
-            nombre=$("#nombre").val()
-            apellido=$("#apellido").val()
-            cedula=$("#cedula").val()
-            email=$("#email").val()
-            rol=$("#rol").val()
-            contraseña=$("#contraseña").val()
-    
+    $(document).ready(function () {
+        $("#guardarUsuario").click(function () {
+            nombre = $("#nombre").val()
+            apellido = $("#apellido").val()
+            cedula = $("#cedula").val()
+            email = $("#email").val()
+            rol = $("#rol").val()
+            contraseña = $("#contraseña").val()
+
             $.ajax({
                 data: {
                     nombre,
@@ -207,15 +210,24 @@
                     cedula,
                     email,
                     rol,
-                    contraseña                          
+                    contraseña
                 },
                 type: 'POST',
                 url: '/nuevoUsuario',
                 success: function (response) {
-
+                    if (response.error === 'true') {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        window.location.href = response.page
+                    }
                 }
             });
         });
     });
-    
 </script>

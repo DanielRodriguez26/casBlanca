@@ -94,6 +94,7 @@ def homePorductos():
             cur = mydb.cursor(dictionary=True)
             cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos''')
             productos = cur.fetchall()
+            cur.close()
             productos = json.dumps(productos)        
             return render_template('homePorductos.html',productos=productos)
         return render_template("403.html")
@@ -108,6 +109,7 @@ def ingresoProductos():
             cur = mydb.cursor()
             cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto,cantidadProducto, valorUnidadProducto, valorTotalProducto,actualizarProducto FROM productos''')
             productos = cur.fetchall()
+            cur.close()
             return render_template('ingresoProductos.html',productos=productos)
         return render_template("403.html")
     except Exception as error:
@@ -121,6 +123,7 @@ def salidaProductos():
             cur = mydb.cursor()
             cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos''')
             productos = cur.fetchall()
+            cur.close()
             return render_template('salidaProductos.html',productos=productos)
         return render_template("403.html")
     except Exception as error:
@@ -134,6 +137,7 @@ def cortecias():
             cur = mydb.cursor(dictionary=True)
             cur.execute(''' SELECT nombreProducto ,precioProducto ,idProducto FROM productos''')
             productos = cur.fetchall()
+            cur.close()
             productos = json.dumps(productos)
             return render_template('cortecias.html',productos=productos)
         return render_template("403.html")
@@ -183,7 +187,7 @@ def facturaProducto():
 
                     idDetalle = cur.lastrowid
             mydb.commit()
-            
+            cur.close()
             return redirect(url_for('ingresoProductos'))
         return render_template("403.html")
     except Exception as error:
@@ -206,6 +210,7 @@ def usuarios():
         cur = mydb.cursor()
         cur.execute('''SELECT idUsuario,username,nombreUsuarios,apellidoUsuario,emailUsuario,rol,fechaUsuario FROM casablanca.usuarios''')
         usuarios = cur.fetchall()
+        cur.close()
         return render_template('usuarios.html',usuarios=usuarios)
     except Exception as error:
         logger.exception(error)
@@ -226,16 +231,24 @@ def nuevoUsuario():
             hashedPass = customhash.hash(contraseña)
 
             cur = mydb.cursor()
-            cur.execute(''' INSERT INTO 
-                            casablanca.usuarios 
-                            (username, nombreUsuarios, 
-                            apellidoUsuario,emailUsuario, 
-                            passwordUsuario, rol, 
-                            fechaUsuario)
-                            VALUES (%s,%s,%s,%s,%s,%s,now()) ''',
-                    (cedula, nombre, apellido, email,hashedPass, rol))
-            mydb.commit()
-            return redirect(url_for('usuarios '))
+
+            cur.execute('''SELECT username FROM casablanca.usuarios WHERE username=%s''',(cedula,))
+            usuarios = cur.fetchone()
+            if usuarios != None:
+                mensaje = 'Esta cedula ya ya se encuentar agregada '
+                return Response(json.dumps({'error': 'true','page': '/home', 'message':mensaje }),  mimetype='application/json')
+            else:
+                cur.execute(''' INSERT INTO 
+                                casablanca.usuarios 
+                                (username, nombreUsuarios, 
+                                apellidoUsuario,emailUsuario, 
+                                passwordUsuario, rol, 
+                                fechaUsuario)
+                                VALUES (%s,%s,%s,%s,%s,%s,now()) ''',
+                        (cedula, nombre, apellido, email,hashedPass, rol))
+                mydb.commit()
+            cur.close()
+            return Response(json.dumps({'error': 'false','page': '/home' }),  mimetype='application/json')
         return render_template("403.html")
     except Exception as error:
         logger.exception(error)
@@ -245,28 +258,57 @@ def nuevoUsuario():
 def editarUsuario(id):
     try:
         if "adminSuper" in session or "admin" in session: 
+            cur = mydb.cursor()
+            cur.execute('''SELECT idUsuario,username,nombreUsuarios,apellidoUsuario,emailUsuario,rol,fechaUsuario FROM casablanca.usuarios WHERE username=%s''',(id,))
+            usuarios = cur.fetchall()
+            cur.close()
+            return render_template('editarUsuario.html',usuarios=usuarios)
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+@app.route('/updateUsuario/<id>',methods=['POST','GET'])
+def updateUsuario(id):
+    try:
+        if "adminSuper" in session or "admin" in session: 
             nombre=request.form['nombre']
             apellido=request.form['apellido']
             cedula=request.form['cedula']
             email=request.form['email']
             rol=request.form['rol']
-            contraseña =request.form['contraseña']
-
-            hashedPass = customhash.hash(contraseña)
 
             cur = mydb.cursor()
-            cur.execute(''' INSERT INTO 
-                            casablanca.usuarios 
-                            (username, nombreUsuarios, 
-                            apellidoUsuario,emailUsuario, 
-                            passwordUsuario, rol, fechaUsuario) 
-                            VALUES (%s,%s,%s,%s,%s,%s,now())''',
-                            (cedula,nombre, apellido, email,hashedPass, rol))
+            
+            cur.execute(''' UPDATE 
+                            usuarios SET 
+                            username = %s, 
+                            nombreUsuarios = %s, 
+                            apellidoUsuario = %s, 
+                            emailUsuario = %s, 
+                            rol = %s, 
+                            fechaUsuario = now()
+                            WHERE (username =%s)''',
+                            (cedula,nombre, apellido, email, rol ,id))
             mydb.commit()
-            return redirect(url_for('usuarios '))
+            cur.close()
+            return Response(json.dumps({'error': 'false','page': '/home' }),  mimetype='application/json')
         return render_template("403.html")
     except Exception as error:
         logger.exception(error)
+
+@app.route('/deleteUsuario/<id>', methods=['POST'])
+def deleteUsuario(id):
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            cur =mydb.cursor()
+            cur.execute('DELETE FROM usuarios WHERE username =%s',(id,))
+            mydb.commit()
+            cur.close()
+            return redirect(url_for('home'))
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
 
 if __name__ == '__main__':
     app.run(port = 3000, debug = True)
