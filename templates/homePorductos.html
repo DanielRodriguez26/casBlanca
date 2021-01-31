@@ -49,7 +49,7 @@
                                             // Precio
                                             let miNodoPrecio = document.createElement('p');
                                             miNodoPrecio.classList.add('card-text');
-                                            miNodoPrecio.textContent = info['precioProducto'] + '€';
+                                            miNodoPrecio.textContent = '$'+info['precioProducto'] ;
                                             // Boton 
                                             let miNodoBoton = document.createElement('button');
                                             miNodoBoton.classList.add('btn', 'btn-primary');
@@ -101,7 +101,7 @@
                                             miNodo.classList.add('list-group-item', 'text-right',
                                                 'mx-2');
                                             miNodo.textContent =
-                                                `${numeroUnidadesItem} x ${miItem[0]['nombreProducto']} - ${miItem[0]['precioProducto']}€`;
+                                                `${numeroUnidadesItem} x ${miItem[0]['nombreProducto']} - $${miItem[0]['precioProducto']}`;
                                             // Boton de borrar
                                             let miBoton = document.createElement('button');
                                             miBoton.classList.add('btn', 'btn-danger', 'mx-5');

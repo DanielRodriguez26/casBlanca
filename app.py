@@ -42,10 +42,16 @@ def Initial():
         logger.exception(error)
 
 
+def clearSession():
+        # Para mas seguridad, al cargar la landingpage siempre se limpian todas las cookies
+    session.clear()
+
+
 Initial()
 @app.route('/')
 def login():
     try:
+        clearSession()
         return render_template('login.html')
     except Exception as error:
             logger.exception(error)
@@ -65,6 +71,20 @@ def loginVerify():
             return redirect("/")
     except Exception as error:
             logger.exception(error)
+
+@app.route("/logout", methods=['POST','GET'])
+def logout():
+    try:
+        Initial()
+        if session:
+            if session.get("SessionId"):
+                sessionId = session["SessionId"]
+                clearSession()
+
+            return render_template('login.html')
+
+    except Exception as error:
+                logger.exception(error)
 
 
 @app.route('/home')
@@ -94,7 +114,7 @@ def homePorductos():
     try:
         if "adminSuper" in session or "admin" in session or "ventas" in session:  
             cur = mydb.cursor(dictionary=True)
-            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos''')
+            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos where cantidadProducto > 0''')
             productos = cur.fetchall()
             cur.close()
             productos = json.dumps(productos)        
@@ -109,7 +129,12 @@ def ingresoProductos():
     try:
         if "adminSuper" in session or "admin" in session: 
             cur = mydb.cursor()
-            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto,cantidadProducto, valorUnidadProducto, valorTotalProducto,actualizarProducto FROM productos''')
+            cur.execute(''' SELECT idProducto, nombreProducto ,
+                            precioProducto , fechaProducto,
+                            cantidadProducto, valorUnidadProducto, 
+                            valorTotalProducto,actualizarProducto,
+                            totalDiaProducto
+                            FROM productos''')
             productos = cur.fetchall()
             cur.close()
             return render_template('ingresoProductos.html',productos=productos)
@@ -123,7 +148,7 @@ def salidaProductos():
     try:
         if "adminSuper" in session or "admin" in session: 
             cur = mydb.cursor()
-            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos''')
+            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos ''')
             productos = cur.fetchall()
             cur.close()
             return render_template('salidaProductos.html',productos=productos)
@@ -137,7 +162,7 @@ def cortecias():
     try:
         if "adminSuper" in session or "admin" in session: 
             cur = mydb.cursor(dictionary=True)
-            cur.execute(''' SELECT nombreProducto ,precioProducto ,idProducto FROM productos''')
+            cur.execute(''' SELECT nombreProducto ,precioProducto ,idProducto FROM productos where cantidadProducto > 0''')
             productos = cur.fetchall()
             cur.close()
             productos = json.dumps(productos)
@@ -157,12 +182,11 @@ def facturaProducto():
             idProducto = productos[0]
             contar = 0
             idDetalle=0
-            session["username"] = id
+            id = session["username"] 
             cur = mydb.cursor()
-            cur.execute('''
-                    INSERT INTO casablanca.facturas (totalFacturas,fechaFactura,usuarioFactura) VALUES (%s,now(),%s)
-                    ''',(totalVenta,id,) )
-            
+            cur.execute(''' INSERT INTO facturas 
+                            (totalFacturas,usuarioFactura,fechaFactura) 
+                            VALUES (%s,%s,now())''',(totalVenta,id))            
             idFactura = cur.lastrowid
 
             for producto in productos:
@@ -176,13 +200,13 @@ def facturaProducto():
 
                 if contar > 1:
                     cur.execute('''
-                    UPDATE casablanca.detalle SET cantidadDetalle = %s WHERE (idDetalle = %s)
+                    UPDATE detalle SET cantidadDetalle = %s WHERE (idDetalle = %s)
                     ''', (contar,idDetalle,))
 
                     idDetalle =idDetalle 
                 else:
                     cur.execute(''' INSERT INTO 
-                                    casablanca.detalle
+                                    detalle
                                     (idFacturaDetalle, idProductoDetalle, 
                                     cantidadDetalle, fechaDetalle) 
                                     VALUES (%s, %s, %s, now())''', 
@@ -201,7 +225,7 @@ def facturaProducto():
 def usuarios():    
     try:
         cur = mydb.cursor()
-        cur.execute('''SELECT idUsuario,username,nombreUsuarios,apellidoUsuario,emailUsuario,rol,fechaUsuario FROM casablanca.usuarios''')
+        cur.execute('''SELECT idUsuario,username,nombreUsuarios,apellidoUsuario,emailUsuario,rol,fechaUsuario FROM usuarios''')
         usuarios = cur.fetchall()
         cur.close()
         return render_template('usuarios.html',usuarios=usuarios)
@@ -225,14 +249,14 @@ def nuevoUsuario():
 
             cur = mydb.cursor()
 
-            cur.execute('''SELECT username FROM casablanca.usuarios WHERE username=%s''',(cedula,))
+            cur.execute('''SELECT username FROM usuarios WHERE username=%s''',(cedula,))
             usuarios = cur.fetchone()
             if usuarios != None:
                 mensaje = 'Esta cedula ya ya se encuentar agregada '
                 return Response(json.dumps({'error': 'true','page': '/home', 'message':mensaje }),  mimetype='application/json')
             else:
                 cur.execute(''' INSERT INTO 
-                                casablanca.usuarios 
+                                usuarios 
                                 (username, nombreUsuarios, 
                                 apellidoUsuario,emailUsuario, 
                                 passwordUsuario, rol, 
@@ -252,7 +276,7 @@ def editarUsuario(id):
     try:
         if "adminSuper" in session or "admin" in session: 
             cur = mydb.cursor()
-            cur.execute('''SELECT idUsuario,username,nombreUsuarios,apellidoUsuario,emailUsuario,rol,fechaUsuario FROM casablanca.usuarios WHERE username=%s''',(id,))
+            cur.execute('''SELECT idUsuario,username,nombreUsuarios,apellidoUsuario,emailUsuario,rol,fechaUsuario FROM usuarios WHERE username=%s''',(id,))
             usuarios = cur.fetchall()
             cur.close()
             return render_template('editarUsuario.html',usuarios=usuarios)
@@ -337,6 +361,39 @@ def detallesProducto(id):
             fechaHoy =datetime.date.today()
             cur.close()
             return render_template('detallesProductos.html',detalles=detalles,totalPre=totalPre,fechafac=fechafac,fechaHoy=fechaHoy)
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+
+#Inventarios
+@app.route('/editarCantidad',methods=['POST','GET'])
+def editarCantidad():
+    try:
+        if "adminSuper" in session or "admin" in session or "ventas" in session: 
+            idProducto=request.form['idProducto']
+            cantidadNueva=request.form['cantidadNueva']
+            valorNueva =request.form['valorNueva']
+            cur =mydb.cursor()
+            cur.execute('''SELECT cantidadProducto,valorTotalProducto  FROM productos WHERE  idProducto =%s ''',(idProducto,))
+            productos = cur.fetchall()
+            CantidadT= int(productos[0]) + cantidadNueva
+            valorP = valorNueva *cantidadNueva
+            valorT= int(productos[1]) +valorP
+
+            cur.execute(''' UPDATE productos 
+                            SET cantidadProducto = %s, 
+                            valorUnidadProducto = %s, 
+                            valorTotalProducto = %s, 
+                            fechaProducto =now()
+                            WHERE (idProducto = %s);
+                        ''', (CantidadT,valorNueva, valorT,idProducto) )
+            productos = cur.fetchall()
+                
+        
+            cur.close()
+
+            return Response(json.dumps({'error': 'false','page': '/ingresoProductos' }),  mimetype='application/json')
         return render_template("403.html")
     except Exception as error:
         logger.exception(error)

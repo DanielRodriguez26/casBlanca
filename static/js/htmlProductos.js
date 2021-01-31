@@ -28,3 +28,11 @@ $(document).ready(function() {
         $("#contenido").load("usuarios");
     });
 });
+$(document).ready(function() {
+    $("#logout").click(function() {
+        debugger
+        
+        if (!confirm('¿Está seguro que desea cerrar sesión?')) return;
+        window.location.href = "/logout";
+    });
+});
