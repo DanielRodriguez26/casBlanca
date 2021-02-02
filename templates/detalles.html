@@ -109,6 +109,7 @@
                                     <th>Total Factura</th>
                                     <th>Responsable</th>
                                     <th>Fecha de Ingreso</th>
+                                    <th>Estado</th>
                                     <th>Detalles</th>
                                     
 
@@ -121,6 +122,13 @@
                                     <th>{{factura.1}}</th>
                                     <th>{{factura.3}}</th>
                                     <th>{{factura.2}}</th>
+                                    {% if factura.4 == 1 %}
+                                    <th>Activa</th>
+                                    {% elif factura.4 == 2 %}
+                                    <th>Esperando a terminar el mes</th>
+                                    {% elif factura.4 == 3 %}
+                                    <th>Desactivada</th>
+                                    {% endif %}	
                                     <th>
                                         <button  id="detallesProducto{{factura.0}}"  type="submit" class="btn btn-secondary btn-sm  ">
                                             <i class="fas fa-info-circle"></i>

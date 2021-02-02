@@ -185,8 +185,8 @@ def facturaProducto():
             id = session["username"] 
             cur = mydb.cursor()
             cur.execute(''' INSERT INTO facturas 
-                            (totalFacturas,usuarioFactura,fechaFactura) 
-                            VALUES (%s,%s,now())''',(totalVenta,id))            
+                            (totalFacturas,usuarioFactura,fechaFactura,estadoFactura) 
+                            VALUES (%s,%s,now(),1)''',(totalVenta,id))            
             idFactura = cur.lastrowid
 
             for producto in productos:
@@ -309,7 +309,7 @@ def updateUsuario(id):
                             (cedula,nombre, apellido, email, rol ,id))
             mydb.commit()
             cur.close()
-            return Response(json.dumps({'error': 'false','page': '/home' }),  mimetype='application/json')
+            return Response(json.dumps({'error': 'false','page': '/usuarios' }),  mimetype='application/json')
         return render_template("403.html")
     except Exception as error:
         logger.exception(error)
@@ -335,7 +335,7 @@ def detallesFactura():
     try:
         if "adminSuper" in session or "admin" in session or "ventas" in session: 
             cur = mydb.cursor()
-            cur.execute('''SELECT idFactura,totalFacturas,fechaFactura,usuarioFactura FROM facturas;''')
+            cur.execute('''SELECT idFactura,totalFacturas,fechaFactura,usuarioFactura,estadoFactura FROM facturas''')
             facturas = cur.fetchall()
             cur.close()
             return render_template('detalles.html',facturas=facturas)
@@ -367,6 +367,34 @@ def detallesProducto(id):
 
 
 #Inventarios
+@app.route('/nuevoProducto',methods=['POST','GET'])
+def nuevoProducto():
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            nombreProducto=request.form['nombreProducto']
+            precioProducto=request.form['precioProducto']
+            cantidadNueva=request.form['cantidadNueva']
+            valorNueva=request.form['valorNueva']
+            valorT = valorNueva * cantidadNueva
+
+            cur = mydb.cursor()
+
+            cur.execute(''' INSERT INTO 
+                            productos 
+                            (nombreProducto, precioProducto, 
+                            precioProducto,cantidadProducto, 
+                            valorUnidadProducto, valorTotalProducto,fechaProducto)
+                            VALUES (%s,%s,%s,%s,%s,%s,now()) ''',
+                    (nombreProducto, precioProducto, cantidadNueva, valorNueva,valorT))
+            mydb.commit()
+            cur.close()
+            return Response(json.dumps({'error': 'false','page': '/ingresoProductos' }),  mimetype='application/json')
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+
+
 @app.route('/editarCantidad',methods=['POST','GET'])
 def editarCantidad():
     try:
@@ -377,9 +405,11 @@ def editarCantidad():
             cur =mydb.cursor()
             cur.execute('''SELECT cantidadProducto,valorTotalProducto  FROM productos WHERE  idProducto =%s ''',(idProducto,))
             productos = cur.fetchall()
-            CantidadT= int(productos[0]) + cantidadNueva
-            valorP = valorNueva *cantidadNueva
-            valorT= int(productos[1]) +valorP
+            cantidadNueva=int(cantidadNueva)
+            cantidadProducto = productos[0][0]
+            CantidadT= cantidadProducto + cantidadNueva
+            valorP = int(valorNueva) *cantidadNueva
+            valorT= int(valorP) +productos[0][1]
 
             cur.execute(''' UPDATE productos 
                             SET cantidadProducto = %s, 
@@ -390,7 +420,7 @@ def editarCantidad():
                         ''', (CantidadT,valorNueva, valorT,idProducto) )
             productos = cur.fetchall()
                 
-        
+            mydb.commit()
             cur.close()
 
             return Response(json.dumps({'error': 'false','page': '/ingresoProductos' }),  mimetype='application/json')

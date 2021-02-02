@@ -2,38 +2,44 @@
     $(document).ready(function () {
         debugger;
         var table = $('#myTable7').DataTable({
-            responsive:true,
-            "language":espanol,
-            "info" : false,
+            responsive: true,
+            "language": espanol,
+            "info": false,
             dom: 'Bfrtip',
-            buttons: [
-                { extend: 'excelHtml5', footer: true,
-                exportOptions: {
-                    modifier: {
-                    page: 'all',
-                    search: 'none'   
+            buttons: [{
+                    extend: 'excelHtml5',
+                    footer: true,
+                    exportOptions: {
+                        modifier: {
+                            page: 'all',
+                            search: 'none'
+                        }
                     }
-                }
                 },
-                { extend: 'csvHtml5', footer: true,
-                exportOptions: {
-                    modifier: {
-                    page: 'all',
-                    search: 'none'   
+                {
+                    extend: 'csvHtml5',
+                    footer: true,
+                    exportOptions: {
+                        modifier: {
+                            page: 'all',
+                            search: 'none'
+                        }
                     }
-                }
                 },
-                { extend: 'pdfHtml5', footer: true,
-                exportOptions: {
-                    modifier: {
-                    page: 'all',
-                    search: 'none'   
+                {
+                    extend: 'pdfHtml5',
+                    footer: true,
+                    exportOptions: {
+                        modifier: {
+                            page: 'all',
+                            search: 'none'
+                        }
                     }
                 }
-                }
-            ]               
+            ]
 
         });
+
 
         $('input[type="search"]').on('keyup', function () {});
     });
@@ -85,7 +91,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         {% for producto in productos %}
-                        
+
                         {% endfor %}
                     </div>
                 </div>
@@ -101,7 +107,8 @@
 
                 <div class="container ">
                     <div style="text-align: right;">&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="#" id="agregarProducto" class="btn btn-primary" data-toggle="modal" data-target="#productoNuevo">
+                        <a href="#" id="agregarProducto" class="btn btn-primary" data-toggle="modal"
+                            data-target="#productoNuevo">
                             <i class="nav-icon fas fa-plus"></i>
                         </a>
                     </div>
@@ -116,8 +123,8 @@
                                     <th>Valor Total</th>
                                     <th>Total compra dia </th>
                                     <th>Fecha de Ingreso</th>
-                                    <th>Nuevo ingreso</th>
-                                    <th>precio unidad</th>
+                                    <th></th>
+
 
                                 </tr>
                             </thead>
@@ -129,40 +136,15 @@
                                     <th>{{producto.2}}</th>
                                     <th>{{producto.4}}</th>
                                     <th>{{producto.5}}</th>
-                                    <th>{{producto.5}}</th>
+                                    <th>{{producto.6}}</th>
                                     <th>{{producto.3}}</th>
                                     <th>
-                                        <input type="number" id="cantidadNueva{{producto.0}}" style="width: 60px;">
+                                        <a href="#" id="agregarProducto" class="btn btn-primary btn btn-sm" data-toggle="modal"
+                                            data-target="#cantidaNueva{{producto.0}}">
+                                            <i class="nav-icon fas fa-plus"></i>
+                                        </a>
                                     </th>
-                                    <th>
-                                        <input type="number" id="valorNueva{{producto.0}} " value="{{producto.5}}" style="width: 60px;">
-                                    </th>
-                                    
                                 </tr>
-                                <script>
-                                    $("#cantidadNueva{{producto.0}}").blur(function(){
-                                        debugger
-                                        var cantidadNueva=$("#cantidadNueva{{producto.0}}").val()
-                                        var valorNueva=$("#valorNueva{{producto.0}}").val()
-                                        var idProducto = '{{producto.0}}'
-                                        if (cantidadNueva != ""  || cantidadNueva > 0){
-                                            $.ajax({
-                                                data: {
-                                                    idProducto,
-                                                    cantidadNueva,
-                                                    valorNueva
-                                                },
-                                                type: 'POST',
-                                                url: '/editarCantidad',
-                                                success: function (response) {
-                                                    
-                                                    $("#contenido").load(response.page);
-                                                }
-                                            });
-                                        }
-                                       
-                                    });
-                                </script>
                                 {% endfor %}
                             </tbody>
                         </table>
@@ -174,6 +156,42 @@
     </section>
     <!-- /.container-fluid -->
 </div>
+{% for producto in productos %}
+<div class="modal fade" id="cantidaNueva{{producto.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Producto: {{producto.1}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div id="mensajeErrorCrearUsuario"></div>
+            </div>
+            <div class="modal-body">
+                <input type="text" value="{{producto.0}}" id="idProducto" hidden>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Cantidad:</label>
+                    <input type="number" class="form-control" id="cantidadNueva" placeholder="Ingrese la cantidad que llego"
+                        autocomplete="off" style="background-image:  auto;">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Valor Unitario</label>
+                    <input type="number" class="form-control" id="valorNueva" placeholder="Ingrese su valor por unidad"
+                        autocomplete="off" style="background-image:  auto;">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="guardarCantidad">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
 <div class="modal fade" id="productoNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -186,45 +204,34 @@
                 <div id="mensajeErrorCrearUsuario"></div>
             </div>
             <div class="modal-body">
-
+               
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese su Nombre"
+                    <label for="exampleInputEmail1">Nombre del producto</label>
+                    <input type="text" class="form-control" id="nombreProducto" placeholder="Ingrese la cantidad que llego"
                         autocomplete="off" style="background-image:  auto;">
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Apellido</label>
-                    <input type="text" class="form-control" id="apellido" placeholder="Ingrese su apellido"
+                    <label for="exampleInputEmail1">Precio:</label>
+                    <input type="number" class="form-control" id="precioProducto" placeholder="Ingrese el precio en venta"
                         autocomplete="off" style="background-image:  auto;">
                 </div>
+
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Cedula</label>
-                    <input type="number" class="form-control" id="cedula" placeholder="Ingrese su cedula"
+                    <label for="exampleInputEmail1">Cantidad:</label>
+                    <input type="number" class="form-control" id="cantidadNueva" placeholder="Ingrese la cantidad que llego"
                         autocomplete="off" style="background-image:  auto;">
                 </div>
+
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Ingrese su email"
+                    <label for="exampleInputEmail1">Valor Unitario</label>
+                    <input type="number" class="form-control" id="valorNueva" placeholder="Ingrese su valor por unidad"
                         autocomplete="off" style="background-image:  auto;">
                 </div>
-                <div class="form-group">
-                    <label>Rol</label>
-                    <select class="form-control" id="rol">
-                        <option value="2">Administrador</option>
-                        <option value="3">Vendedor</option>
-                    </select>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="guardarProducto">Guardar</button>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="contraseña" placeholder="Password"
-                        autocomplete="off"
-                        style="background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="guardarUsuario">Guardar</button>
             </div>
         </div>
     </div>
@@ -232,41 +239,72 @@
 
 <script>
     $(document).ready(function () {
-        $("#guardarUsuario").click(function () {
-            nombre = $("#nombre").val()
-            apellido = $("#apellido").val()
-            cedula = $("#cedula").val()
-            email = $("#email").val()
-            rol = $("#rol").val()
-            contraseña = $("#contraseña").val()
 
-            $.ajax({
-                data: {
-                    nombre,
-                    apellido,
-                    cedula,
-                    email,
-                    rol,
-                    contraseña
-                },
-                type: 'POST',
-                url: '/nuevoUsuario',
-                success: function (response) {
-                    if (response.error === 'true') {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'error',
-                            title: response.message,
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    } else {
-                        window.location.href = response.page
-                        
+        $("#guardarCantidad").click(function () {
+            debugger
+            cantidadNueva = $("#cantidadNueva").val()
+            valorNueva = $("#valorNueva").val()
+            
+            idProducto =$("#idProducto").val()
+            if (cantidadNueva != "" && valorNueva != "") {
+                $.ajax({
+                    data: {
+                        idProducto,
+                        cantidadNueva,
+                        valorNueva
+                    },
+                    type: 'POST',
+                    url: '/editarCantidad',
+                    success: function (response) {
+
+                        $("#contenido").load(response.page);
                     }
-                }
-            });
+                });
+            } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: "Agregue un valor porfavor",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
         });
-      
+        $("#guardarProducto").click(function () {
+            debugger
+            
+            nombreProducto = $("#nombreProducto").val()
+            precioProducto = $("#precioProducto").val()
+            cantidadNueva = $("#cantidadNueva").val()
+            valorNueva = $("#valorNueva").val()
+            
+            
+            if (cantidadNueva != "" && nombreProducto != "" && precioProducto != ""&& valorNueva != "") {
+                $.ajax({
+                    data: {
+                        nombreProducto,
+                        precioProducto,
+                        cantidadNueva,
+                        valorNueva,
+                    },
+                    type: 'POST',
+                    url: '/nuevoProducto',
+                    success: function (response) {
+
+                        $("#contenido").load(response.page);
+                    }
+                });
+            } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: "Agregue un valor porfavor",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
+        });
     });
 </script>
