@@ -25,7 +25,8 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="{{url_for('static', filename ='plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- SweetAlert2 -->
-  <link rel="stylesheet" href="{{url_for('static', filename ='plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
+  <link rel="stylesheet"
+    href="{{url_for('static', filename ='plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
   <!-- JQVMap -->
   <link rel="stylesheet" href="{{url_for('static', filename ='plugins/jqvmap/jqvmap.min.css')}}">
   <!-- Theme style -->
@@ -101,19 +102,11 @@
               </p>
             </a>
           </li>
-          <li class="nav-item" href="#" id="salidaProductos">
+          <li class="nav-item" href="#" id="gastos">
             <a href=" #" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
-                Salida
-              </p>
-            </a>
-          </li>
-          <li class="nav-item" href="#" id="detallesFactura">
-            <a href=" #" class="nav-link">
-              <i class="nav-icon fas fa-list-alt"></i>
-              <p>
-                Detalles
+                Gastos
               </p>
             </a>
           </li>
@@ -143,9 +136,80 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div></div>
+
   <div class="content-wrapper" id="contenido">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-sign-out-alt"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Gastos</span>
+              <span class="info-box-number">{{"${:,.0f}".format( gastosDiarios)}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-2">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Ventas</span>
+              <span class="info-box-number">{{"${:,.0f}".format( sumaFacturas)}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-2">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-dollar-sign"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Venta del mes</span>
+              <span class="info-box-number">{{"${:,.0f}".format( sumaFacturasMes)}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-12 col-sm-6 col-md-2">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-sign-out-alt"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Gastos del mes</span>
+              <span class="info-box-number">{{"${:,.0f}".format( sumaGastosMes)}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-3">
+          <div class="info-box mb-3">
+            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-money-bill-wave-alt"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Ganancias </span>
+              <span class="info-box-number">{{"${:,.0f}".format( ganancias)}}</span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+      </div>
+    </div>
+
     <img src="{{url_for('static', filename ='img/logo1.jpeg')}}" alt="AdminLTE Logo"
-      class="brand-image img-circle elevation-3 align-content-center" style="opacity: .2; margin-left:288px; ">
+      class="brand-image img-circle elevation-3 align-content-center" style="opacity: .2; margin-left:288px; height: 528px; ">
   </div>
   <!-- /.content-wrapper -->
 
@@ -193,7 +257,7 @@
   <script src="{{url_for('static', filename ='plugins/summernote/summernote-bs4.min.js')}}">
   </script>
   <!-- SweetAlert2 -->
-<script src="{{url_for('static', filename ='plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+  <script src="{{url_for('static', filename ='plugins/sweetalert2/sweetalert2.min.js')}}"></script>
   <!-- Summernote -->
   <script src="{{url_for('static', filename ='assets/js/jquery.min.js')}}">
   </script>

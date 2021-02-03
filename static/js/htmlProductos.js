@@ -9,8 +9,8 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
-    $("#salidaProductos").click(function() {
-        $("#contenido").load("salidaProductos");
+    $("#gastos").click(function() {
+        $("#contenido").load("gastos");
     });
 });
 $(document).ready(function() {
@@ -30,8 +30,6 @@ $(document).ready(function() {
 });
 $(document).ready(function() {
     $("#logout").click(function() {
-        debugger
-        
         if (!confirm('¿Está seguro que desea cerrar sesión?')) return;
         window.location.href = "/logout";
     });

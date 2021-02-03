@@ -1,0 +1,222 @@
+<script>
+    $(document).ready(function () {
+        var table = $('#myTable7').DataTable({
+            responsive:true,
+            "language":espanol,
+            "info" : false,
+            dom: 'Bfrtip',
+            buttons: [
+                { extend: 'excelHtml5', footer: true,
+                exportOptions: {
+                    modifier: {
+                    page: 'all',
+                    search: 'none'   
+                    }
+                }
+                },
+                { extend: 'csvHtml5', footer: true,
+                exportOptions: {
+                    modifier: {
+                    page: 'all',
+                    search: 'none'   
+                    }
+                }
+                },
+                { extend: 'pdfHtml5', footer: true,
+                exportOptions: {
+                    modifier: {
+                    page: 'all',
+                    search: 'none'   
+                    }
+                }
+                }
+            ]               
+        });
+
+        $('input[type="search"]').on('keyup', function () {});
+    });
+
+    var espanol = {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        },
+        "buttons": {
+            "copy": "Copiar",
+            "colvis": "Visibilidad"
+        }
+    }
+</script>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2 ">
+            <div class="col-sm-6">
+                <h1 class="m-0  mb-3">Gastos</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Gastos</li>
+                </ol>
+            </div><!-- /.col -->
+
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<div class="content-body">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="container ">
+                    <div style="text-align: right;">&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#gastoNuevo">
+                            <i class="nav-icon fas fa-plus"></i>
+                        </a>
+                    </div>
+                    <div style="padding: 10px;">
+                        <table class="table table-striped table-bordered nowrap" width="100%" id="myTable7">
+                            <thead>
+                                <tr>
+                                    <th>Identificador</th>
+                                    <th>Nombre del gasto</th>
+                                    <th>Descripcion</th>
+                                    <th>Valor</th>
+                                    <th>Estado</th>
+                                    <th>Fecha de Ingreso</th>
+                                    
+                                    <th>Accion</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for gasto in gastos %}
+                                <tr>
+
+                                    <th>{{gasto.0}}</th>
+                                    <th>{{gasto.1}}</th>
+                                    <th>{{gasto.2}}</th>
+                                    <td>{{"${:,.0f}".format( gasto.3)}}</td>
+                                    
+                                    <th>
+                                        {% if gasto.5 == 1 %}
+                                        En revisión
+                                        {% elif  gasto.5 == 2%}
+                                        Revisada
+                                        {% endif %}
+                                    </th>
+                                    <th>{{gasto.4}}</th>
+                                    <th>
+                                        <button href="#" class="btn btn-warning btn-sm" id="update{{gasto.0}}">
+                                            <i class="nav-icon fas fa-edit"></i>
+                                        </button>
+                                        
+                                        <form action="/deleteGasto/{{gasto.0}}" method="POST"
+                                            class="btnDelete float-right">
+                                            <button type="submit" class="btn btn-danger btn-sm  ">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </th>
+                                </tr>
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#update{{gasto.0}}").click(function () {
+                                            debugger
+                                            $("#contenido").load("/editarGasto/{{gasto.0}}");
+                                        });
+                                    });
+                                </script>
+
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- /.container-fluid -->
+</div>
+<div class="modal fade" id="gastoNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nuevo Gasto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div id="mensajeErrorCrearGasto"></div>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nombre del gasto:</label>
+                    <input type="text" class="form-control" id="nombreGasto" placeholder="Ingrese el Nombre del gasto"
+                        autocomplete="off" style="background-image:  auto;">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Descripción</label>
+                    <input type="text" class="form-control" id="descripcionGasto" placeholder="Ingrese una descripción"
+                        autocomplete="off" style="background-image:  auto;">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Valor</label>
+                    <input type="number" class="form-control" id="valorGasto" placeholder="Ingrese el valor"
+                        autocomplete="off" style="background-image:  auto;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="guardarGasto">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#guardarGasto").click(function () {
+            nombreGasto = $("#nombreGasto").val()
+            descripcionGasto = $("#descripcionGasto").val()
+            valorGasto = $("#valorGasto").val()
+
+            $.ajax({
+                data: {
+                    nombreGasto,
+                    descripcionGasto,
+                    valorGasto
+                },
+                type: 'POST',
+                url: '/nuevoGasto',
+                success: function (response) {
+                    window.location.href = response.page
+                }
+            });
+        });
+    });
+</script>

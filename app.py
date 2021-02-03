@@ -91,8 +91,46 @@ def logout():
 def home():
     try:
         if "adminSuper" in session or "admin" in session: 
+            cur = mydb.cursor()
+            # Gastos
+            cur.execute('''SELECT  valorGasto FROM gastos where estadoGasto=1 ''')
+            gastosDiarios = cur.fetchall()
+            sumaGastos = 0
+                        
+            for gastosDiario in gastosDiarios:
+                gastosDiario= gastosDiario[0]
+                sumaGastos += gastosDiario
+
+            # Ventas
+            cur.execute('''SELECT  totalFacturas FROM facturas where estadoFactura=1 ''')
+            totalFacturas = cur.fetchall()
+            sumaFacturas = 0
+                        
+            for totalFactura in totalFacturas:
+                totalFactura= totalFactura[0]
+                sumaFacturas += totalFactura
+
+            # venta Mes
+            cur.execute('''SELECT  totalFacturas FROM facturas where estadoFactura=2 ''')
+            facturasMes = cur.fetchall()
+            sumaFacturasMes = 0
+                        
+            for facturaMes in facturasMes:
+                facturaMes= facturaMes[0]
+                sumaFacturasMes += facturaMes
             
-            return render_template('index.html')
+            # Gastos Mes
+            cur.execute('''SELECT  valorGasto FROM gastos where estadoGasto=2 ''')
+            gastosMes = cur.fetchall()
+            sumaGastosMes = 0
+                        
+            for gastosMes in gastosMes:
+                gastosMes= gastosMes[0]
+                sumaGastosMes += gastosMes
+            
+            # Ganancias
+            ganancias = sumaFacturasMes - sumaGastosMes
+            return render_template('index.html', gastosDiarios=sumaGastos, sumaFacturas=sumaFacturas,sumaFacturasMes=sumaFacturasMes , ganancias=ganancias,sumaGastosMes=sumaGastosMes)
         return render_template("403.html")
     except Exception as error:
             logger.exception(error)
@@ -132,8 +170,7 @@ def ingresoProductos():
             cur.execute(''' SELECT idProducto, nombreProducto ,
                             precioProducto , fechaProducto,
                             cantidadProducto, valorUnidadProducto, 
-                            valorTotalProducto,actualizarProducto,
-                            totalDiaProducto
+                            valorTotalProducto
                             FROM productos''')
             productos = cur.fetchall()
             cur.close()
@@ -142,19 +179,6 @@ def ingresoProductos():
     except Exception as error:
         logger.exception(error)
 
-
-@app.route('/salidaProductos')
-def salidaProductos():
-    try:
-        if "adminSuper" in session or "admin" in session: 
-            cur = mydb.cursor()
-            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos ''')
-            productos = cur.fetchall()
-            cur.close()
-            return render_template('salidaProductos.html',productos=productos)
-        return render_template("403.html")
-    except Exception as error:
-        logger.exception(error)
 
 
 @app.route('/cortecias')
@@ -446,6 +470,101 @@ def editarCantidad():
     except Exception as error:
         logger.exception(error)
 
+
+#Gastos
+@app.route('/gastos')
+def gastos():
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            cur = mydb.cursor()
+            cur.execute(''' SELECT idgGasto, nombreGasto,DescipcionGasto,valorGasto, fechaGasto,estadoGasto FROM gastos''')
+            gastos = cur.fetchall()
+            cur.close()
+            return render_template('gastos.html',gastos=gastos)
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+
+@app.route('/nuevoGasto',methods=['POST','GET'])
+def nuevoGasto():
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            nombreGasto=request.form['nombreGasto']
+            descripcionGasto=request.form['descripcionGasto']
+            valorGasto=request.form['valorGasto']
+
+            cur = mydb.cursor()
+
+            cur.execute(''' INSERT INTO 
+                            gastos 
+                            (nombreGasto,
+                            DescipcionGasto,
+                            valorGasto,
+                            fechaGasto,
+                            estadoGasto)
+                            VALUES (%s,%s,%s,now(),'1') ''',
+                            (nombreGasto, descripcionGasto, valorGasto))
+            mydb.commit()
+            cur.close()
+            return Response(json.dumps({'error': 'false','page': '/home' }),  mimetype='application/json')
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+
+@app.route('/editarGasto/<id>',methods=['POST','GET'])
+def editarGasto(id):
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            cur = mydb.cursor()
+            cur.execute('''SELECT idgGasto, nombreGasto,DescipcionGasto,valorGasto FROM gastos Where idgGasto=%s''',(id,))
+            gastos = cur.fetchall()
+            cur.close()
+            return render_template('editarGasto.html',gastos=gastos)
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+
+@app.route('/updateGasto/<id>',methods=['POST','GET'])
+def updateGasto(id):
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            nombreGasto=request.form['nombreGasto']
+            DescipcionGasto=request.form['DescipcionGasto']
+            valorGasto=request.form['valorGasto']
+
+            cur = mydb.cursor()
+            
+            cur.execute(''' UPDATE 
+                            gastos SET 
+                            nombreGasto = %s
+                            DescipcionGasto = %s, 
+                            valorGasto = %s, 
+                            fechaUsuario = now()
+                            WHERE (idgGasto =%s)''',
+                            (nombreGasto, DescipcionGasto, valorGasto ,id))
+            mydb.commit()
+            cur.close()
+            return Response(json.dumps({'error': 'false','page': '/gastos' }),  mimetype='application/json')
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+
+@app.route('/deleteGasto/<id>', methods=['POST'])
+def deleteGasto(id):
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            cur =mydb.cursor()
+            cur.execute('DELETE FROM gastos WHERE idgGasto =%s',(id,))
+            mydb.commit()
+            cur.close()
+            return redirect(url_for('home'))
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
 
 
 if __name__ == '__main__':
