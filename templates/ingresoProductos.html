@@ -5,6 +5,7 @@
             responsive: true,
             "language": espanol,
             "info": false,
+            "order": [[ 1, "desc" ]],
             dom: 'Bfrtip',
             buttons: [{
                     extend: 'excelHtml5',
@@ -119,9 +120,8 @@
                                     <th>Id Producto</th>
                                     <th style="width: 182.889px;">Nombre del Producto</th>
                                     <th>Precio</th>
+                                    <th>Cantidad</th>
                                     <th>Valor X unidad</th>
-                                    <th>Valor Total</th>
-                                    <th>Total compra dia </th>
                                     <th>Fecha de Ingreso</th>
                                     <th></th>
 
@@ -136,7 +136,7 @@
                                     <th>{{producto.2}}</th>
                                     <th>{{producto.4}}</th>
                                     <th>{{producto.5}}</th>
-                                    <th>{{producto.6}}</th>
+                                    
                                     <th>{{producto.3}}</th>
                                     <th>
                                         <a href="#" id="agregarProducto" class="btn btn-primary btn btn-sm" data-toggle="modal"

@@ -39,6 +39,16 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
+    $("#gastosMes").click(function() {
+        window.location.href ='gastosMes'
+    });
+});
+$(document).ready(function() {
+    $("#ventaMes").click(function() {
+        window.location.href ='ventaMes'
+    });
+});
+$(document).ready(function() {
     $("#logout").click(function() {
         if (!confirm('¿Está seguro que desea cerrar sesión?')) return;
         window.location.href = "/logout";

@@ -230,38 +230,40 @@ def facturaProducto():
 
                 cur.execute('''SELECT cantidadProducto FROM productos WHERE  idProducto =%s ''',(idProducto,))
                 productos = cur.fetchone()
-                
-                if contar > 1:
-                    cur.execute(''' UPDATE detalle 
-                                    SET cantidadDetalle = %s 
-                                    WHERE (idDetalle = %s)
-                    ''', (contar,idDetalle,))
+                if productos[0] > 0:
+                    if contar > 1:
+                        cur.execute(''' UPDATE detalle 
+                                        SET cantidadDetalle = %s 
+                                        WHERE (idDetalle = %s)
+                        ''', (contar,idDetalle,))
 
-                    contarMenos = productos[0] - 1
+                        contarMenos = productos[0] - 1
 
-                    cur.execute(''' UPDATE productos 
-                                    SET cantidadProducto = %s 
-                                    WHERE (idProducto = %s)
-                    ''', (contarMenos,idProducto,))
+                        cur.execute(''' UPDATE productos 
+                                        SET cantidadProducto = %s 
+                                        WHERE (idProducto = %s)
+                        ''', (contarMenos,idProducto,))
 
-                    idDetalle =idDetalle 
+                        idDetalle =idDetalle 
+                    else:
+                        cur.execute(''' INSERT INTO 
+                                        detalle
+                                        (idFacturaDetalle, idProductoDetalle, 
+                                        cantidadDetalle, fechaDetalle) 
+                                        VALUES (%s, %s, %s, now())''', 
+                                        (idFactura,producto,contar))
+                        
+                        contarMenos = productos[0] - 1
+
+                        cur.execute(''' UPDATE productos 
+                                        SET cantidadProducto = %s 
+                                        WHERE (idProducto = %s)
+                        ''', (contarMenos,idProducto,))
+
+
+                        idDetalle = cur.lastrowid
                 else:
-                    cur.execute(''' INSERT INTO 
-                                    detalle
-                                    (idFacturaDetalle, idProductoDetalle, 
-                                    cantidadDetalle, fechaDetalle) 
-                                    VALUES (%s, %s, %s, now())''', 
-                                    (idFactura,producto,contar))
-                    
-                    contarMenos = productos[0] - 1
-
-                    cur.execute(''' UPDATE productos 
-                                    SET cantidadProducto = %s 
-                                    WHERE (idProducto = %s)
-                    ''', (contarMenos,idProducto,))
-
-
-                    idDetalle = cur.lastrowid
+                    pass
             mydb.commit()
             cur.close()
             return  Response(json.dumps({'error': 'true','page': '/homePorductos',}),  mimetype='application/json')
@@ -605,6 +607,47 @@ def gastosDia():
             for gasto in gastos:
                 id = gasto[0]
                 cur.execute('''UPDATE gastos SET estadoGasto = '2' WHERE (idgGasto = %s)''',(id,))
+
+
+            mydb.commit()
+            cur.close()
+            return redirect('home')
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+
+@app.route('/ventaMes', methods=['POST','GET'])
+def ventaMes():
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            cur =mydb.cursor()
+            cur.execute('SELECT  idFactura FROM facturas where estadoFactura=2 ')
+            facturas = cur.fetchall()
+            
+            for factura in facturas:
+                id = factura[0]
+                cur.execute('''UPDATE facturas SET estadoFactura = '3' WHERE (idFactura = %s)''',(id,))
+
+
+            mydb.commit()
+            cur.close()
+            return redirect('home')
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+@app.route('/gastosMes', methods=['POST','GET'])
+def gastosMes():
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            cur =mydb.cursor()
+            cur.execute('SELECT  idgGasto FROM gastos where estadoGasto=2 ')
+            gastos = cur.fetchall()
+            
+            for gasto in gastos:
+                id = gasto[0]
+                cur.execute('''UPDATE gastos SET estadoGasto = '3' WHERE (idgGasto = %s)''',(id,))
 
 
             mydb.commit()
