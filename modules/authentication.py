@@ -56,3 +56,7 @@ def authenticate(id, contra):
                 response.redirect = True
                 response.url = url_for('homeVentas')
                 return response
+        else:
+            response.redirect = False
+    else:
+        response.redirect = False

@@ -29,6 +29,16 @@ $(document).ready(function() {
     });
 });
 $(document).ready(function() {
+    $("#gastosDia").click(function() {
+        window.location.href ='gastosDia'
+    });
+});
+$(document).ready(function() {
+    $("#ventaDia").click(function() {
+        window.location.href ='ventaDia'
+    });
+});
+$(document).ready(function() {
     $("#logout").click(function() {
         if (!confirm('¿Está seguro que desea cerrar sesión?')) return;
         window.location.href = "/logout";

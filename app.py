@@ -65,8 +65,15 @@ def loginVerify():
             contra = request.form['contraseña']
             session["username"] = id
             authenticateResponse = authentication.authenticate(id, contra)
-            if (authenticateResponse.redirect):
-                return redirect(authenticateResponse.url)
+            if (authenticateResponse):
+                if (authenticateResponse.redirect == True):
+                    return redirect(authenticateResponse.url)
+                else:
+                    mensaje = 'Hay un error en la validacion'
+                    return render_template('login.html', mensaje=mensaje)
+            else:
+                mensaje = 'Hay un error en la validacion'
+                return render_template('login.html', mensaje=mensaje)
         else:
             return redirect("/")
     except Exception as error:
@@ -377,7 +384,7 @@ def detallesFactura():
     try:
         if "adminSuper" in session or "admin" in session or "ventas" in session: 
             cur = mydb.cursor()
-            cur.execute('''SELECT idFactura,totalFacturas,fechaFactura,usuarioFactura,estadoFactura FROM facturas''')
+            cur.execute('''SELECT idFactura,totalFacturas,fechaFactura,usuarioFactura,estadoFactura FROM facturas ORDER BY fechaFactura DESC''')
             facturas = cur.fetchall()
             cur.close()
             return render_template('detalles.html',facturas=facturas)
@@ -417,16 +424,16 @@ def nuevoProducto():
             precioProducto=request.form['precioProducto']
             cantidadNueva=request.form['cantidadNueva']
             valorNueva=request.form['valorNueva']
-            valorT = valorNueva * cantidadNueva
+            valorT = int(valorNueva) * int(cantidadNueva)
 
             cur = mydb.cursor()
 
             cur.execute(''' INSERT INTO 
                             productos 
-                            (nombreProducto, precioProducto, 
+                            (nombreProducto, 
                             precioProducto,cantidadProducto, 
                             valorUnidadProducto, valorTotalProducto,fechaProducto)
-                            VALUES (%s,%s,%s,%s,%s,%s,now()) ''',
+                            VALUES (%s,%s,%s,%s,%s,now()) ''',
                     (nombreProducto, precioProducto, cantidadNueva, valorNueva,valorT))
             mydb.commit()
             cur.close()
@@ -566,6 +573,46 @@ def deleteGasto(id):
     except Exception as error:
         logger.exception(error)
 
+
+@app.route('/ventaDia', methods=['POST','GET'])
+def ventaDia():
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            cur =mydb.cursor()
+            cur.execute('SELECT  idFactura FROM facturas where estadoFactura=1 ')
+            facturas = cur.fetchall()
+            
+            for factura in facturas:
+                id = factura[0]
+                cur.execute('''UPDATE facturas SET estadoFactura = '2' WHERE (idFactura = %s)''',(id,))
+
+
+            mydb.commit()
+            cur.close()
+            return redirect('home')
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+@app.route('/gastosDia', methods=['POST','GET'])
+def gastosDia():
+    try:
+        if "adminSuper" in session or "admin" in session: 
+            cur =mydb.cursor()
+            cur.execute('SELECT  idgGasto FROM gastos where estadoGasto=1 ')
+            gastos = cur.fetchall()
+            
+            for gasto in gastos:
+                id = gasto[0]
+                cur.execute('''UPDATE gastos SET estadoGasto = '2' WHERE (idgGasto = %s)''',(id,))
+
+
+            mydb.commit()
+            cur.close()
+            return redirect('home')
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
 
 if __name__ == '__main__':
     app.run(port = 3000, debug = True)
