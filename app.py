@@ -197,11 +197,21 @@ def facturaProducto():
                     idProducto = producto
                     contar = 1
 
-
+                cur.execute('''SELECT cantidadProducto FROM productos WHERE  idProducto =%s ''',(idProducto,))
+                productos = cur.fetchone()
+                
                 if contar > 1:
-                    cur.execute('''
-                    UPDATE detalle SET cantidadDetalle = %s WHERE (idDetalle = %s)
+                    cur.execute(''' UPDATE detalle 
+                                    SET cantidadDetalle = %s 
+                                    WHERE (idDetalle = %s)
                     ''', (contar,idDetalle,))
+
+                    contarMenos = productos[0] - 1
+
+                    cur.execute(''' UPDATE productos 
+                                    SET cantidadProducto = %s 
+                                    WHERE (idProducto = %s)
+                    ''', (contarMenos,idProducto,))
 
                     idDetalle =idDetalle 
                 else:
@@ -211,11 +221,19 @@ def facturaProducto():
                                     cantidadDetalle, fechaDetalle) 
                                     VALUES (%s, %s, %s, now())''', 
                                     (idFactura,producto,contar))
+                    
+                    contarMenos = productos[0] - 1
+
+                    cur.execute(''' UPDATE productos 
+                                    SET cantidadProducto = %s 
+                                    WHERE (idProducto = %s)
+                    ''', (contarMenos,idProducto,))
+
 
                     idDetalle = cur.lastrowid
             mydb.commit()
             cur.close()
-            return redirect(url_for('ingresoProductos'))
+            return  Response(json.dumps({'error': 'true','page': '/homePorductos',}),  mimetype='application/json')
         return render_template("403.html")
     except Exception as error:
         logger.exception(error)
