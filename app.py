@@ -254,6 +254,7 @@ def facturaProducto():
                                         (idFactura,producto,contar))
                         
                         contarMenos = productos[0] - 1
+                        idDetalle = cur.lastrowid
 
                         cur.execute(''' UPDATE productos 
                                         SET cantidadProducto = %s 
@@ -261,7 +262,7 @@ def facturaProducto():
                         ''', (contarMenos,idProducto,))
 
 
-                        idDetalle = cur.lastrowid
+                        
                 else:
                     pass
             mydb.commit()

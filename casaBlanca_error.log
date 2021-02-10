@@ -1,0 +1,133 @@
+2021-02-09 21:28:34,927 - CasaBlanca - ERROR: 'gasto' is undefined
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
+    return render_template('detalles.html',facturas=facturas)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
+    ctx.app,
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
+    $("#update{{gasto.0}}").on("tap",function(){
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'gasto' is undefined
+2021-02-09 21:28:36,666 - CasaBlanca - ERROR: 'gasto' is undefined
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
+    return render_template('detalles.html',facturas=facturas)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
+    ctx.app,
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
+    $("#update{{gasto.0}}").on("tap",function(){
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'gasto' is undefined
+2021-02-09 21:30:22,784 - CasaBlanca - ERROR: 'gasto' is undefined
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
+    return render_template('detalles.html',facturas=facturas)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
+    ctx.app,
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
+    $("#update{{gasto.0}}").on("tap",function(){
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'gasto' is undefined
+2021-02-09 21:30:42,411 - CasaBlanca - ERROR: 'gasto' is undefined
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
+    return render_template('detalles.html',facturas=facturas)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
+    ctx.app,
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
+    $("#update{{gasto.0}}").on("tap",function(){
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'gasto' is undefined
+2021-02-09 21:30:42,937 - CasaBlanca - ERROR: 'gasto' is undefined
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
+    return render_template('detalles.html',facturas=facturas)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
+    ctx.app,
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
+    $("#update{{gasto.0}}").on("tap",function(){
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'gasto' is undefined
+2021-02-09 21:30:43,155 - CasaBlanca - ERROR: 'gasto' is undefined
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
+    return render_template('detalles.html',facturas=facturas)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
+    ctx.app,
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
+    $("#update{{gasto.0}}").on("tap",function(){
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'gasto' is undefined
+2021-02-09 21:30:43,364 - CasaBlanca - ERROR: 'gasto' is undefined
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
+    return render_template('detalles.html',facturas=facturas)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
+    ctx.app,
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
+    $("#update{{gasto.0}}").on("tap",function(){
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
+    return obj[argument]
+jinja2.exceptions.UndefinedError: 'gasto' is undefined

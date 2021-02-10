@@ -1,6 +1,6 @@
 <script>
     $(document).ready(function () {
-        debugger;
+        ;
         var table = $('#myTable7').DataTable({
             responsive:true,
             "language":espanol,
@@ -138,8 +138,11 @@
                                 </tr>
                                 <script>
                                     $(document).ready(function () {
-                                        $("#detallesProducto{{factura.0}}").click(function () {
-                                            debugger
+                                        $("#detallesProducto{{factura.0}}").click(function () { 
+                                            debugger                                           
+                                            $("#contenido").load("/detallesProducto/{{factura.0}}");
+                                        });
+                                        $("#detallesProducto{{factura.0}}").on("tap",function(){
                                             $("#contenido").load("/detallesProducto/{{factura.0}}");
                                         });
                                     });
