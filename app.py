@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, g, make_response, session, escape, Response,json
 import modules.authentication as authentication
 from flask_mysqldb import MySQL
+from werkzeug.utils import secure_filename
 import modules.globalvariables as gb
 import modules.customhash as customhash
 import modules.usuarios as usuarios
@@ -13,10 +14,13 @@ import datetime
 
 
 app = Flask(__name__)
+
 mydb = None
 logger = None
 loggerAccess = None
 globalvariables = None
+
+UPLOAD_FOLDER = None
 
 def Initial():
     global app, mydb, logger
@@ -38,9 +42,14 @@ def Initial():
 
 
         app.secret_key = "RGlCYW5rYTEuMCB3YXMgbWFkZSBmb3IgQ0FTVVIsIGFuZCB3cml0dGVuIGJ5IE1pZ3VlIGFuZCBEYW5pZWwuIEF0IHRoZSBlbmQgb2YgdGhlIHByb2plY3QsIEp1YW4sIEVkd2luLCBIdWdvIGFuZCBBbmRyw6lzIGpvaW5lZCB0aGUgdGVhbS4gTm93IHdlIGFyZSBhIGZpcmVmaWdodGVycyB0ZWFtLg=="
+
+        UPLOAD_FOLDER = os.path.abspath("./static/img/")
+
+        app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+        app.config["FORMATO_PERMITIDO"] = ["PNG", "JPG", "JPEG", "PDF", "DOCX", "DOC"]
+        app.config["MAX_IMAGE_FILESIZE"] = 0.5 * 1024 * 1024
     except Exception as error:
         logger.exception(error)
-
 
 def clearSession():
         # Para mas seguridad, al cargar la landingpage siempre se limpian todas las cookies
@@ -48,6 +57,20 @@ def clearSession():
 
 
 Initial()
+def archivo_permitido(filename):
+        if not "." in filename:
+                return False
+        
+        ext = filename.rsplit(".", 1)[1]
+
+        if ext.upper() in app.config["FORMATO_PERMITIDO"]:
+                return True
+        else:
+                return False
+
+
+
+
 @app.route('/')
 def login():
     try:
@@ -159,7 +182,7 @@ def homePorductos():
     try:
         if "adminSuper" in session or "admin" in session or "ventas" in session:  
             cur = mydb.cursor(dictionary=True)
-            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto FROM productos where cantidadProducto > 0''')
+            cur.execute('''SELECT idProducto, nombreProducto ,precioProducto , fechaProducto,imagenProducto FROM productos where cantidadProducto > 0''')
             productos = cur.fetchall()
             cur.close()
             productos = json.dumps(productos)        
@@ -419,25 +442,39 @@ def detallesProducto(id):
 
 
 #Inventarios
+
+
 @app.route('/nuevoProducto',methods=['POST','GET'])
 def nuevoProducto():
     try:
         if "adminSuper" in session or "admin" in session: 
-            nombreProducto=request.form['nombreProducto']
-            precioProducto=request.form['precioProducto']
-            cantidadNueva=request.form['cantidadNueva']
-            valorNueva=request.form['valorNueva']
+            nombreProducto=request.form.get('nombreProducto')
+            precioProducto=request.form.get('precioProducto')
+            cantidadNueva=request.form.get('cantidadNueva')
+            valorNueva=request.form.get('valorNueva')
             valorT = int(valorNueva) * int(cantidadNueva)
+            
+            if "file" in request.files:
+                imagen = request.files.get("file")
+                
+                if imagen and archivo_permitido(imagen.filename): 
+                    filename = secure_filename(imagen.filename)
+                    imagen.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+                else:
+                    message= "El archivo no es una image"
+                    return Response(json.dumps({'error': 'true','message':message,'page': '/ingresoProductos' }),  mimetype='application/json')
+            else:
+                message= "No existe imagen"
+                return Response(json.dumps({'error': 'true','message':message,'page': '/ingresoProductos' }),  mimetype='application/json')
 
             cur = mydb.cursor()
-
             cur.execute(''' INSERT INTO 
                             productos 
                             (nombreProducto, 
                             precioProducto,cantidadProducto, 
-                            valorUnidadProducto, valorTotalProducto,fechaProducto)
-                            VALUES (%s,%s,%s,%s,%s,now()) ''',
-                    (nombreProducto, precioProducto, cantidadNueva, valorNueva,valorT))
+                            valorUnidadProducto, valorTotalProducto,fechaProducto,imagenProducto)
+                            VALUES (%s,%s,%s,%s,%s,now(),%s) ''',
+                    (nombreProducto, precioProducto, cantidadNueva, valorNueva,valorT,filename))
             mydb.commit()
             cur.close()
             return Response(json.dumps({'error': 'false','page': '/ingresoProductos' }),  mimetype='application/json')

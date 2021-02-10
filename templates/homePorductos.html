@@ -90,8 +90,8 @@
                 miNodoTitle.textContent = info['nombreProducto'];
                 // Imagen
                 let miNodoImagen = document.createElement('img');
-                miNodoImagen.classList.add('img-fluid');
-                miNodoImagen.setAttribute('src', info['imagen']);
+                miNodoImagen.classList.add('img-fluid','rounded-circle');
+                miNodoImagen.setAttribute('src', "static/img/"+info['imagenProducto']);
                 // Precio
                 let miNodoPrecio = document.createElement('p');
                 miNodoPrecio.classList.add('card-text');

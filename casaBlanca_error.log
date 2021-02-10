@@ -1,133 +1,113 @@
-2021-02-09 21:28:34,927 - CasaBlanca - ERROR: 'gasto' is undefined
+2021-02-10 14:54:43,403 - CasaBlanca - ERROR: 'ImmutableMultiDict' object has no attribute 'file'
 Traceback (most recent call last):
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
-    return render_template('detalles.html',facturas=facturas)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
-    ctx.app,
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
-    rv = template.render(context)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
-    $("#update{{gasto.0}}").on("tap",function(){
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
-    return obj[argument]
-jinja2.exceptions.UndefinedError: 'gasto' is undefined
-2021-02-09 21:28:36,666 - CasaBlanca - ERROR: 'gasto' is undefined
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 449, in nuevoProducto
+    if "file" in request.form.file:
+AttributeError: 'ImmutableMultiDict' object has no attribute 'file'
+2021-02-10 14:56:16,257 - CasaBlanca - ERROR: 'ImmutableMultiDict' object has no attribute 'files'
 Traceback (most recent call last):
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
-    return render_template('detalles.html',facturas=facturas)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
-    ctx.app,
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
-    rv = template.render(context)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
-    $("#update{{gasto.0}}").on("tap",function(){
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
-    return obj[argument]
-jinja2.exceptions.UndefinedError: 'gasto' is undefined
-2021-02-09 21:30:22,784 - CasaBlanca - ERROR: 'gasto' is undefined
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 450, in nuevoProducto
+    imagen = request.form.files["file"]
+AttributeError: 'ImmutableMultiDict' object has no attribute 'files'
+2021-02-10 14:57:31,001 - CasaBlanca - ERROR: 'str' object has no attribute 'filename'
 Traceback (most recent call last):
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
-    return render_template('detalles.html',facturas=facturas)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
-    ctx.app,
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
-    rv = template.render(context)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
-    $("#update{{gasto.0}}").on("tap",function(){
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
-    return obj[argument]
-jinja2.exceptions.UndefinedError: 'gasto' is undefined
-2021-02-09 21:30:42,411 - CasaBlanca - ERROR: 'gasto' is undefined
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 451, in nuevoProducto
+    if imagen.filename == "":
+AttributeError: 'str' object has no attribute 'filename'
+2021-02-10 16:25:28,346 - CasaBlanca - ERROR: 'Request' object has no attribute 'file'
 Traceback (most recent call last):
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
-    return render_template('detalles.html',facturas=facturas)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
-    ctx.app,
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
-    rv = template.render(context)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
-    $("#update{{gasto.0}}").on("tap",function(){
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
-    return obj[argument]
-jinja2.exceptions.UndefinedError: 'gasto' is undefined
-2021-02-09 21:30:42,937 - CasaBlanca - ERROR: 'gasto' is undefined
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 450, in nuevoProducto
+    imagen = request.file.get("file")
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+AttributeError: 'Request' object has no attribute 'file'
+2021-02-10 16:27:06,515 - CasaBlanca - ERROR: 'Request' object has no attribute 'file'
 Traceback (most recent call last):
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
-    return render_template('detalles.html',facturas=facturas)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
-    ctx.app,
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
-    rv = template.render(context)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
-    $("#update{{gasto.0}}").on("tap",function(){
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
-    return obj[argument]
-jinja2.exceptions.UndefinedError: 'gasto' is undefined
-2021-02-09 21:30:43,155 - CasaBlanca - ERROR: 'gasto' is undefined
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 450, in nuevoProducto
+    imagen = request.file.get("file")
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+AttributeError: 'Request' object has no attribute 'file'
+2021-02-10 16:27:51,997 - CasaBlanca - ERROR: 'Request' object has no attribute 'file'
 Traceback (most recent call last):
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
-    return render_template('detalles.html',facturas=facturas)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
-    ctx.app,
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
-    rv = template.render(context)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
-    $("#update{{gasto.0}}").on("tap",function(){
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
-    return obj[argument]
-jinja2.exceptions.UndefinedError: 'gasto' is undefined
-2021-02-09 21:30:43,364 - CasaBlanca - ERROR: 'gasto' is undefined
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 450, in nuevoProducto
+    imagen = request.file("file")
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+AttributeError: 'Request' object has no attribute 'file'
+2021-02-10 16:28:18,105 - CasaBlanca - ERROR: 'Request' object has no attribute 'file'
 Traceback (most recent call last):
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 393, in detallesFactura
-    return render_template('detalles.html',facturas=facturas)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 140, in render_template
-    ctx.app,
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\flask\templating.py", line 120, in _render
-    rv = template.render(context)
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 145, in top-level template code
-    $("#update{{gasto.0}}").on("tap",function(){
-  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\jinja2\environment.py", line 452, in getitem
-    return obj[argument]
-jinja2.exceptions.UndefinedError: 'gasto' is undefined
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 450, in nuevoProducto
+    imagen = request.files.get("file")
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\werkzeug\local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+AttributeError: 'Request' object has no attribute 'file'
+2021-02-10 16:29:02,926 - CasaBlanca - ERROR: argument of type 'NoneType' is not iterable
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 452, in nuevoProducto
+    if imagen and allowed_file(imagen.filename):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 58, in allowed_file
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+TypeError: argument of type 'NoneType' is not iterable
+2021-02-10 16:33:59,068 - CasaBlanca - ERROR: argument of type 'NoneType' is not iterable
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 452, in nuevoProducto
+    if imagen and allowed_file(imagen.filename):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 58, in allowed_file
+    return "." in filename and filename.split(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+TypeError: argument of type 'NoneType' is not iterable
+2021-02-10 16:36:52,648 - CasaBlanca - ERROR: argument of type 'NoneType' is not iterable
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 452, in nuevoProducto
+    if imagen and allowed_file(imagen.filename):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 58, in allowed_file
+    return "." in filename and filename.split(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+TypeError: argument of type 'NoneType' is not iterable
+2021-02-10 16:45:39,137 - CasaBlanca - ERROR: 2055: Lost connection to MySQL server at 'localhost:3306', system error: 1 [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2570)
+Traceback (most recent call last):
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\mysql\connector\network.py", line 265, in recv_plain
+    chunk = self.sock.recv(4 - packet_len)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\ssl.py", line 1056, in recv
+    return self.read(buflen)
+  File "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python37_64\lib\ssl.py", line 931, in read
+    return self._sslobj.read(len)
+ssl.SSLError: [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2570)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 477, in nuevoProducto
+    (nombreProducto, precioProducto, cantidadNueva, valorNueva,valorT))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\mysql\connector\cursor.py", line 577, in execute
+    self._handle_result(self._connection.cmd_query(stmt))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\mysql\connector\connection.py", line 695, in cmd_query
+    result = self._handle_result(self._send_cmd(ServerCmd.QUERY, query))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\mysql\connector\connection.py", line 419, in _send_cmd
+    return self._socket.recv()
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\mysql\connector\network.py", line 294, in recv_plain
+    errno=2055, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.OperationalError: 2055: Lost connection to MySQL server at 'localhost:3306', system error: 1 [SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:2570)
+2021-02-10 16:45:39,139 - CasaBlanca - ERROR: MySQL Connection not available.
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 469, in nuevoProducto
+    cur = mydb.cursor()
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\mysql\connector\connection.py", line 1025, in cursor
+    raise errors.OperationalError("MySQL Connection not available.")
+mysql.connector.errors.OperationalError: MySQL Connection not available.
+2021-02-10 16:46:35,444 - CasaBlanca - ERROR: MySQL Connection not available.
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 469, in nuevoProducto
+    cur = mydb.cursor()
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\mysql\connector\connection.py", line 1025, in cursor
+    raise errors.OperationalError("MySQL Connection not available.")
+mysql.connector.errors.OperationalError: MySQL Connection not available.
+2021-02-10 17:04:52,517 - CasaBlanca - ERROR: 1213 (40001): Deadlock found when trying to get lock; try restarting transaction
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 477, in nuevoProducto
+    (nombreProducto, precioProducto, cantidadNueva, valorNueva,valorT))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\mysql\connector\cursor.py", line 577, in execute
+    self._handle_result(self._connection.cmd_query(stmt))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\mysql\connector\connection.py", line 695, in cmd_query
+    result = self._handle_result(self._send_cmd(ServerCmd.QUERY, query))
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\env\lib\site-packages\mysql\connector\connection.py", line 582, in _handle_result
+    raise errors.get_exception(packet)
+mysql.connector.errors.InternalError: 1213 (40001): Deadlock found when trying to get lock; try restarting transaction

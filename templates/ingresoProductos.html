@@ -263,6 +263,11 @@
                     <input type="number" class="form-control" id="valorNueva" placeholder="Ingrese su valor por unidad"
                         autocomplete="off" style="background-image:  auto;">
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Imagen del Producto</label>
+                    <input type="file" class="form-control" id="file" 
+                        autocomplete="off" style="background-image:  auto;">
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="guardarProducto">Guardar</button>
@@ -274,27 +279,43 @@
 
 <script>
     $(document).ready(function () {
-        $("#guardarProducto").click(function () {
-            
-            nombreProducto = $("#nombreProducto").val()
-            precioProducto = $("#precioProducto").val()
-            cantidadNueva = $("#cantidadNueva").val()
-            valorNueva = $("#valorNueva").val()
-            
+        $("#guardarProducto").click(function (e) {
+            e.preventDefault();
+            var data = new FormData();
+            data.append('nombreProducto' , $("#nombreProducto").val());
+            data.append('precioProducto' , $("#precioProducto").val());
+            data.append('cantidadNueva' , $("#cantidadNueva").val());
+            data.append('valorNueva' , $("#valorNueva").val());
+
+            debugger
+
+            $.each($('#file')[0].files, function (i, file) {
+                data.append('file', file);
+            })
+
             
             if (cantidadNueva != "" && nombreProducto != "" && precioProducto != ""&& valorNueva != "") {
                 $.ajax({
-                    data: {
-                        nombreProducto,
-                        precioProducto,
-                        cantidadNueva,
-                        valorNueva,
-                    },
+                    data: data,
+                    cache: false,
+					contentType: false,
+					processData: false,
                     type: 'POST',
                     url: '/nuevoProducto',
                     success: function (response) {
-                        $('.modal-backdrop').remove();//eliminamos el backdrop del modal
-                        $("#contenido").load(response.page);
+                        if(response.error == 'false'){
+                            $('.modal-backdrop').remove();//eliminamos el backdrop del modal
+                            $("#contenido").load(response.page);
+                        }
+                        else{
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'error',
+                                title: response.message,
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
                     }
                 });
             } else {
