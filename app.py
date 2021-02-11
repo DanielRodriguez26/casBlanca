@@ -69,8 +69,6 @@ def archivo_permitido(filename):
                 return False
 
 
-
-
 @app.route('/')
 def login():
     try:
@@ -441,9 +439,21 @@ def detallesProducto(id):
         logger.exception(error)
 
 
+@app.route('/deleteDetalle/<id>', methods=['POST','GET'])
+def deleteDetalle(id):
+    try:
+        if "adminSuper" in session or "admin" in session or "ventas" in session: 
+            cur =mydb.cursor()
+            cur.execute('''UPDATE facturas SET estadoFactura = '4' WHERE (idFactura = %s)''',(id,))
+            mydb.commit()
+            cur.close()
+            return redirect(url_for('home'))
+        return render_template("403.html")
+    except Exception as error:
+        logger.exception(error)
+
+
 #Inventarios
-
-
 @app.route('/nuevoProducto',methods=['POST','GET'])
 def nuevoProducto():
     try:

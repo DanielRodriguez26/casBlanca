@@ -129,11 +129,23 @@
                                     <th>Esperando a terminar el mes</th>
                                     {% elif factura.4 == 3 %}
                                     <th>Desactivada</th>
+                                    {% elif factura.4 == 4 %}
+                                    <th>Eliminada</th>
                                     {% endif %}	
                                     <th>
                                         <button  id="detallesProducto{{factura.0}}"  type="submit" class="btn btn-secondary btn-sm  ">
                                             <i class="fas fa-info-circle"></i>
                                         </button>
+                                        {% if factura.4 == 4 %}
+                                        
+                                        {% else%}
+                                        <form action="/deleteDetalle/{{factura.0}}" method="POST"
+                                            class="btnDelete float-right">
+                                            <button type="submit" class="btn btn-danger btn-sm  ">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                        {% endif %}
                                     </th>
                                 </tr>
                                 <script>
