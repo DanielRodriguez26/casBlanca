@@ -44,3 +44,8 @@ Traceback (most recent call last):
   File "C:\Users\pcc\Desktop\Escritorio\CasaBlanca\templates\detalles.html", line 163, in template
     {% endfor %}
 jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endfor'. You probably made a nesting mistake. Jinja is expecting this tag, but currently looking for 'endif'. The innermost block that needs to be closed is 'if'.
+2021-03-03 17:41:49,257 - CasaBlanca - ERROR: list index out of range
+Traceback (most recent call last):
+  File "c:\Users\pcc\Desktop\Escritorio\CasaBlanca\app.py", line 234, in facturaProducto
+    idProducto = productos[0]
+IndexError: list index out of range
